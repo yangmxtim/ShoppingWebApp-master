@@ -18,7 +18,7 @@ import com.shoppingwebapp.Dao.ProductRepository;
 import com.shoppingwebapp.Model.Member;
 import com.shoppingwebapp.Model.Product;
 
-//@CrossOrigin(allowCredentials = "true", origins = "http://localhost:3306", allowedHeaders = "http://localhost:3306") // set
+@CrossOrigin(allowCredentials = "true", origins = "http://localhost:5173", allowedHeaders = "http://localhost:5173") // set
                                                                                                                      // CORS
 @RestController
 @RequestMapping(path = "/productManagement")

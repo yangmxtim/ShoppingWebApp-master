@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.shoppingwebapp.Dao.ProductRepository;
 import com.shoppingwebapp.Entity.Item;
 
-//@CrossOrigin(allowCredentials = "true", origins = "http://localhost:8080", allowedHeaders = "http://localhost:8080")
+@CrossOrigin(allowCredentials = "true", origins = "http://localhost:5173", allowedHeaders = "http://localhost:5173")
 @RestController
 @RequestMapping(path = "/shoppingcart")
 public class ShoppingCartController {

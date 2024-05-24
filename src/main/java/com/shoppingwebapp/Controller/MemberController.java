@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.shoppingwebapp.Dao.MemberRepository;
 import com.shoppingwebapp.Model.Member;
 
-@CrossOrigin(allowCredentials = "true", origins = "http://localhost:8080", allowedHeaders = "http://localhost:8080") // set
+@CrossOrigin(allowCredentials = "true", origins = "http://localhost:5173", allowedHeaders = "http://localhost:5173") // set
                                                                                                                      // CORS
 @Controller // This means that this class is a Controller
 @RequestMapping(path = "/member") // This means URL's start with /demo (after Application path)
