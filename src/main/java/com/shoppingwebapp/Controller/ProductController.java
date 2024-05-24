@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.shoppingwebapp.Dao.ProductRepository;
 import com.shoppingwebapp.Model.Product;
 
-//@CrossOrigin(origins = "http://localhost:8080", allowedHeaders = "http://localhost:8080")
+@CrossOrigin(origins = "http://localhost:5173", allowedHeaders = "http://localhost:5173")
 @RestController
 @RequestMapping(path = "/product")
 public class ProductController {
