@@ -27,11 +27,12 @@ public class MemberController {
     @PostMapping(path = "/register") // Create member
     @ResponseBody
     public String createNewUser(@RequestParam String username, @RequestParam String email,
-            @RequestParam String password) {
+            @RequestParam String password, @RequestParam String phone) {
         Member member = new Member();
         member.setUsername(username);
         member.setEmail(email);
         member.setPassword(password);
+        member.setPhone(phone);
         member.setAdmin(false);
         memberRepository.save(member);
         return "Success!";

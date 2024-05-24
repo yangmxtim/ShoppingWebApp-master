@@ -47,12 +47,12 @@ public class ProductManageController {
     }
 
     @PostMapping(path = "/update") // update
-    public String update(@RequestParam int id, @RequestParam String name, @RequestParam String description,
-            @RequestParam String quantity, @RequestParam String price, @RequestParam("file") MultipartFile image,
+    public String update(@RequestParam int id, @RequestParam String name, @RequestParam String address,
+            @RequestParam String type, @RequestParam String price, @RequestParam("file") MultipartFile image,
             HttpSession session) {
         Optional<Product> Optional = productRepository.findById(id);
         Object memberID = session.getAttribute("userId");
-        if (Integer.parseInt(quantity) < 0 || Integer.parseInt(price) < 0) {
+        if (Integer.parseInt(type) < 0 || Integer.parseInt(price) < 0) {
             return "Fail!";
         }
         if (memberID != null) {
@@ -60,8 +60,8 @@ public class ProductManageController {
             if (Optional.isPresent() && member.getAdmin()) {
                 Product p = Optional.get();
                 p.setName(name);
-                p.setDescription(description);
-                p.setQuantity(quantity);
+                p.setAddress(address);
+                p.setType(type);
                 p.setPrice(price);
                 try {
                     p.setImage(image.getBytes());
@@ -79,12 +79,12 @@ public class ProductManageController {
     }
 
     @PostMapping(path = "/add") // add
-    public String add(@RequestParam String name, @RequestParam String description, @RequestParam String quantity,
+    public String add(@RequestParam String name, @RequestParam String address, @RequestParam String type,
             @RequestParam String price, @RequestParam("file") MultipartFile image, HttpSession session) {
         Object memberID = session.getAttribute("userId");
         try {
-            if (Integer.parseInt(quantity) < 0 || Integer.parseInt(price) < 0 || name.equals("")
-                    || description.equals("")) {
+            if (Integer.parseInt(type) < 0 || Integer.parseInt(price) < 0 || name.equals("")
+                    || address.equals("")) {
                 return "Fail!";
             }
         } catch (Exception e) {
@@ -95,8 +95,8 @@ public class ProductManageController {
             if (member.getAdmin()) {
                 Product p = new Product();
                 p.setName(name);
-                p.setDescription(description);
-                p.setQuantity(quantity);
+                p.setAddress(address);
+                p.setType(type);
                 p.setPrice(price);
                 try {
                     p.setImage(image.getBytes());

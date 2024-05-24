@@ -17,6 +17,10 @@ public class Member {
 
     private String email;
 
+    private String phone;
+
+    
+
     private Boolean isAdmin;
 
     public Integer getId() {
@@ -35,6 +39,11 @@ public class Member {
         return email;
     }
 
+    public String getPhone() {
+        return phone;
+    }
+
+
     public void setId(Integer id) {
         this.id = id;
     }
@@ -49,6 +58,10 @@ public class Member {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public Boolean getAdmin() {

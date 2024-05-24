@@ -10,9 +10,9 @@ public class Product {
 
     private String name;
 
-    private String description;
+    private String address;
 
-    private String quantity;
+    private String type;
 
     private String price;
 
@@ -20,10 +20,10 @@ public class Product {
     private byte[] image;
 
     public Product() {}
-    public Product(String name, String description, String quatity, String price, byte[] image) {
+    public Product(String name, String address, String type, String price, byte[] image) {
         this.name = name;
-        this.description = description;
-        this.quantity = quatity;
+        this.address = address;
+        this.type = type;
         this.price = price;
         this.image = image;
     }
@@ -36,12 +36,12 @@ public class Product {
         return name;
     }
 
-    public String getDescription() {
-        return description;
+    public String getAddress() {
+        return address;
     }
 
-    public String getQuantity() {
-        return quantity;
+    public String getType() {
+        return type;
     }
 
     public String getPrice() {
@@ -60,12 +60,12 @@ public class Product {
         this.name = name;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
-    public void setQuantity(String quatity) {
-        this.quantity = quatity;
+    public void setType(String type) {
+        this.type = type;
     }
 
     public void setPrice(String price) {
