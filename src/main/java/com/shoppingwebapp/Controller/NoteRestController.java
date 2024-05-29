@@ -2,10 +2,12 @@ package com.shoppingwebapp.Controller;
 
 import com.shoppingwebapp.Service.NoteService;
 import com.shoppingwebapp.Entity.Note;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 @CrossOrigin(origins = "http://localhost:5173", allowedHeaders = {"Origin", "Content-Type", "Accept"}, methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
+//@CrossOrigin(origins = {"＊"}, allowedHeaders = {"Origin", "Content-Type", "Accept"}, methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
 //@CrossOrigin(allowCredentials = "true", origins = "http://localhost:5173", allowedHeaders = "http://localhost:5173") // set
 //@CrossOrigin(origins = "http://localhost:5173", allowedHeaders = "http://localhost:5173")
 
@@ -47,6 +49,17 @@ public class NoteRestController {
         Note dbNote = noteService.save(note);
         return dbNote;
     }
+    //test qr code
+    @GetMapping("/check/{noteId}")
+    public ResponseEntity<Void> updateNoteContent(@PathVariable Integer noteId) {
+        int updatedRows = noteService.updateContentById(noteId);
+        if (updatedRows > 0) {
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 
     @DeleteMapping("/notes/{noteId}")
     public void deletenote(@PathVariable int noteId){

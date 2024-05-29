@@ -32,6 +32,9 @@ public class NoteServiceImpl implements NoteService {
         }
         return note;
     }
+    public int updateContentById(Integer id) {
+        return noteRepository.updateContentById(id);
+    }
 
 
 
