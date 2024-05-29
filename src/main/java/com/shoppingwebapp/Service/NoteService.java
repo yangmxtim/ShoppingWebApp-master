@@ -12,4 +12,6 @@ public interface NoteService {
     Note save(Note note);
 
     void deleteByID(int id);
+
+    int updateContentById(Integer id);
 }
