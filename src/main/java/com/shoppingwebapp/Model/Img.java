@@ -1,6 +1,6 @@
 package com.shoppingwebapp.Model;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
 public class Img {

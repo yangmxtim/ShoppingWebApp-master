@@ -1,6 +1,6 @@
 package com.shoppingwebapp.Model;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity // This tells Hibernate to make a table out of this class
 public class Product {

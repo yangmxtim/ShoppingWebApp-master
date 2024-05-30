@@ -1,7 +1,7 @@
 package com.shoppingwebapp.Model;
 import java.sql.Date;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
 public class Product_detail {
