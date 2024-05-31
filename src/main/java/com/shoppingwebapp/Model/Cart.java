@@ -14,6 +14,20 @@ public class Cart {
 	
 	private Integer quantity;
 
+	
+
+	public Cart() {
+		super();
+	}
+
+	public Cart(Integer cart_item_id, Integer user_id, Integer product_detail_id, Integer quantity) {
+		super();
+		this.cart_item_id = cart_item_id;
+		this.user_id = user_id;
+		this.product_detail_id = product_detail_id;
+		this.quantity = quantity;
+	}
+
 	public Integer getCart_item_id() {
 		return cart_item_id;
 	}
@@ -44,6 +58,12 @@ public class Cart {
 
 	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
+	}
+	
+	@Override
+	public String toString() {
+		return "Cart [cart_item_id=" + cart_item_id + ", user_id=" + user_id + ", product_detail_id="
+				+ product_detail_id + ", quantity=" + quantity + "]";
 	}
 
 	

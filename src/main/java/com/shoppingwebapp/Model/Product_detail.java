@@ -24,6 +24,26 @@ public class Product_detail {
 	private Date departure_time;
 	
 	private Date arrive_time;
+	
+	
+
+	public Product_detail() {
+		super();
+	}
+
+	public Product_detail(Integer product_detail_id, Integer product_id, String tag, Integer price, Integer quantity,
+			String departure_location, String destination_location, Date departure_time, Date arrive_time) {
+		super();
+		this.product_detail_id = product_detail_id;
+		this.product_id = product_id;
+		this.tag = tag;
+		this.price = price;
+		this.quantity = quantity;
+		this.departure_location = departure_location;
+		this.destination_location = destination_location;
+		this.departure_time = departure_time;
+		this.arrive_time = arrive_time;
+	}
 
 	public Integer getProduct_detail_id() {
 		return product_detail_id;
@@ -95,6 +115,14 @@ public class Product_detail {
 
 	public void setArrive_time(Date arrive_time) {
 		this.arrive_time = arrive_time;
+	}
+
+	@Override
+	public String toString() {
+		return "Product_detail [product_detail_id=" + product_detail_id + ", product_id=" + product_id + ", tag=" + tag
+				+ ", price=" + price + ", quantity=" + quantity + ", departure_location=" + departure_location
+				+ ", destination_location=" + destination_location + ", departure_time=" + departure_time
+				+ ", arrive_time=" + arrive_time + "]";
 	}
 	
 	

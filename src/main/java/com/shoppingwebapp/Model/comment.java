@@ -15,6 +15,19 @@ public class comment {
 	private String rate;
 	
 	
+	public comment() {
+		super();
+	}
+	public comment(Integer comment_id, Integer product_id, Integer user_id, String content, String rate,
+			Date comment_date) {
+		super();
+		this.comment_id = comment_id;
+		this.product_id = product_id;
+		this.user_id = user_id;
+		this.content = content;
+		this.rate = rate;
+		this.comment_date = comment_date;
+	}
 	public Integer getComment_id() {
 		return comment_id;
 	}
@@ -52,4 +65,13 @@ public class comment {
 		this.comment_date = comment_date;
 	}
 	private Date comment_date;
+
+
+	@Override
+	public String toString() {
+		return "comment [comment_id=" + comment_id + ", product_id=" + product_id + ", user_id=" + user_id
+				+ ", content=" + content + ", rate=" + rate + ", comment_date=" + comment_date + "]";
+	}
+	
+	
 }
