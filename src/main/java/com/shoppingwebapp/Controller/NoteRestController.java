@@ -2,9 +2,11 @@ package com.shoppingwebapp.Controller;
 
 import com.shoppingwebapp.Service.NoteService;
 import com.shoppingwebapp.Entity.Note;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 @CrossOrigin(origins = "http://localhost:5173", allowedHeaders = {"Origin", "Content-Type", "Accept"}, methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
 //@CrossOrigin(origins = {"＊"}, allowedHeaders = {"Origin", "Content-Type", "Accept"}, methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
@@ -51,14 +53,22 @@ public class NoteRestController {
     }
     //test qr code
     @GetMapping("/check/{noteId}")
-    public ResponseEntity<Void> updateNoteContent(@PathVariable Integer noteId) {
+    public void updateNoteContent(@PathVariable Integer noteId, HttpServletResponse response) throws IOException {
         int updatedRows = noteService.updateContentById(noteId);
         if (updatedRows > 0) {
-            return ResponseEntity.ok().build();
+            response.sendRedirect("https://www.google.es/");
         } else {
-            return ResponseEntity.notFound().build();
-        }
+            response.sendRedirect("https://www.google.es/");        }
     }
+//    @GetMapping("/check/{noteId}")
+//    public ResponseEntity<Void> updateNoteContent(@PathVariable Integer noteId) {
+//        int updatedRows = noteService.updateContentById(noteId);
+//        if (updatedRows > 0) {
+//            return ResponseEntity.ok().build();
+//        } else {
+//            return ResponseEntity.notFound().build();
+//        }
+//    }
 
 
     @DeleteMapping("/notes/{noteId}")
