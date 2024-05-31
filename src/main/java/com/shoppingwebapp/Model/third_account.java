@@ -14,6 +14,22 @@ public class third_account {
 	private String email;
 	
 	private String access_token;
+	
+	
+
+	public third_account() {
+		super();
+	}
+
+	public third_account(Integer account_id, Integer user_id, String service_provider, String email,
+			String access_token) {
+		super();
+		this.account_id = account_id;
+		this.user_id = user_id;
+		this.service_provider = service_provider;
+		this.email = email;
+		this.access_token = access_token;
+	}
 
 	public Integer getAccount_id() {
 		return account_id;
@@ -54,6 +70,14 @@ public class third_account {
 	public void setAccess_token(String access_token) {
 		this.access_token = access_token;
 	}
+
+	@Override
+	public String toString() {
+		return "third_account [account_id=" + account_id + ", user_id=" + user_id + ", service_provider="
+				+ service_provider + ", email=" + email + ", access_token=" + access_token + "]";
+	}
+	
+	
 	
 	
 }

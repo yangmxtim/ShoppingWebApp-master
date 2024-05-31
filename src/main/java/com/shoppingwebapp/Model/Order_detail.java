@@ -28,6 +28,28 @@ public class Order_detail {
 	private String contact_phone;
 	
 	private String contact_email;
+	
+	
+
+	public Order_detail() {
+		super();
+	}
+
+	public Order_detail(Integer order_id, Integer cart_id, Date order_date, String payment_method,
+			String payment_status, Date payment_date, String order_status, String contact_name, String contact_phone,
+			String contact_email) {
+		super();
+		this.order_id = order_id;
+		this.cart_id = cart_id;
+		this.order_date = order_date;
+		this.payment_method = payment_method;
+		this.payment_status = payment_status;
+		this.payment_date = payment_date;
+		this.order_status = order_status;
+		this.contact_name = contact_name;
+		this.contact_phone = contact_phone;
+		this.contact_email = contact_email;
+	}
 
 	public Integer getOrder_id() {
 		return order_id;
@@ -108,4 +130,14 @@ public class Order_detail {
 	public void setContact_email(String contact_email) {
 		this.contact_email = contact_email;
 	}
+
+	@Override
+	public String toString() {
+		return "Order_detail [order_id=" + order_id + ", cart_id=" + cart_id + ", order_date=" + order_date
+				+ ", payment_method=" + payment_method + ", payment_status=" + payment_status + ", payment_date="
+				+ payment_date + ", order_status=" + order_status + ", contact_name=" + contact_name
+				+ ", contact_phone=" + contact_phone + ", contact_email=" + contact_email + "]";
+	}
+	
+	
 }

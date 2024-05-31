@@ -16,6 +16,22 @@ public class form {
 	private String content;
 	private Date finish_time;
 	private String status;
+	
+	
+	public form() {
+		super();
+	}
+	public form(Integer form_id, String name, String email, String topic, String content, Date finish_time,
+			String status) {
+		super();
+		this.form_id = form_id;
+		this.name = name;
+		this.email = email;
+		this.topic = topic;
+		this.content = content;
+		this.finish_time = finish_time;
+		this.status = status;
+	}
 	public Integer getForm_id() {
 		return form_id;
 	}
@@ -57,6 +73,11 @@ public class form {
 	}
 	public void setStatus(String status) {
 		this.status = status;
+	}
+	@Override
+	public String toString() {
+		return "form [form_id=" + form_id + ", name=" + name + ", email=" + email + ", topic=" + topic + ", content="
+				+ content + ", finish_time=" + finish_time + ", status=" + status + "]";
 	}
 	
 	

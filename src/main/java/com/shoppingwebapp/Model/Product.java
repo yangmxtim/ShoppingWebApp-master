@@ -15,6 +15,21 @@ public class Product {
     private String type;
 
     private String introduction;
+    
+    
+
+	public Product() {
+		super();
+	}
+
+	public Product(Integer product_id, String name, String address, String type, String introduction) {
+		super();
+		this.product_id = product_id;
+		this.name = name;
+		this.address = address;
+		this.type = type;
+		this.introduction = introduction;
+	}
 
 	public Integer getProduct_id() {
 		return product_id;
@@ -55,5 +70,13 @@ public class Product {
 	public void setIntroduction(String introduction) {
 		this.introduction = introduction;
 	}
+
+	@Override
+	public String toString() {
+		return "Product [product_id=" + product_id + ", name=" + name + ", address=" + address + ", type=" + type
+				+ ", introduction=" + introduction + "]";
+	}
+	
+	
 }
     
