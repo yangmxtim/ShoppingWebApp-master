@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 @Entity
 public class third_account {
 	@Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer account_id;
 	
 	private Integer user_id;

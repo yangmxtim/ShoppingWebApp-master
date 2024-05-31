@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 @Entity
 public class Img {
 	@Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	
 	private String name;

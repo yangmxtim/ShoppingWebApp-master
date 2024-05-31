@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 @Entity
 public class Cart {
 	@Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer cart_item_id;
 	
 	private Integer user_id;
