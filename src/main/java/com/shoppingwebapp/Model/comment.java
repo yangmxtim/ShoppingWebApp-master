@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 @Entity
 public class comment {
 	@Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer comment_id;
 	private Integer product_id;
 	private Integer user_id;

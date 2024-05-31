@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 @Entity
 public class Product_detail {
 	@Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer product_detail_id;
 	
 	private Integer product_id;

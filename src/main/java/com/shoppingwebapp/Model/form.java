@@ -8,7 +8,7 @@ import jakarta.persistence.*;
 public class form {
 	
 	@Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer form_id;
 	private String name;
 	private String email;

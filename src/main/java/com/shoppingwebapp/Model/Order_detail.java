@@ -8,7 +8,7 @@ import jakarta.persistence.*;
 public class Order_detail {
 
 	@Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer order_id;
 	
 	private Integer cart_id;
