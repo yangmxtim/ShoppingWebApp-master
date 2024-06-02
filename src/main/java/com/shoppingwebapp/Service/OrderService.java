@@ -1,28 +1,23 @@
 package com.shoppingwebapp.Service;
 
-import java.util.UUID;
-
-import org.springframework.stereotype.Service;
-
+import com.shoppingwebapp.Model.OrderInfo;
 import ecpay.payment.integration.AllInOne;
 import ecpay.payment.integration.domain.AioCheckOutALL;
+import org.springframework.stereotype.Service;
 
 @Service
 public class OrderService {
 
-    public String ecpayCheckout() {
-
-        String uuId = UUID.randomUUID().toString().replaceAll("-", "").substring(0, 20);
-
+    public String ecpayCheckout(OrderInfo orderInfo) {
         AllInOne all = new AllInOne("");
 
         AioCheckOutALL obj = new AioCheckOutALL();
-        obj.setMerchantTradeNo(uuId);
-        obj.setMerchantTradeDate("2017/01/01 08:05:23");
-        obj.setTotalAmount("50");
-        obj.setTradeDesc("test Description");
-        obj.setItemName("TestItem");
-        obj.setReturnURL("http://211.23.128.214:5000");
+        obj.setMerchantTradeNo(orderInfo.getOrderId());
+        obj.setMerchantTradeDate("2017/01/01 08:05:23"); // 這裡應該使用實際的交易時間
+        obj.setTotalAmount(orderInfo.getTotalAmount());
+        obj.setTradeDesc(orderInfo.getTradeDesc());
+        obj.setItemName(orderInfo.getItemName());
+        obj.setReturnURL("http://211.23.128.214:5000"); // 回傳的URL
         obj.setNeedExtraPaidInfo("N");
         String form = all.aioCheckOut(obj, null);
 
