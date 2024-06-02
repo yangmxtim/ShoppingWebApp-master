@@ -1,5 +1,7 @@
 package com.shoppingwebapp.Model;
 
+import java.util.List;
+
 import jakarta.persistence.*;
 
 @Entity // This tells Hibernate to make a table out of this class
@@ -9,12 +11,17 @@ public class Product {
     private Integer product_id;
 
     private String name;
+    
+    private String img;
 
     private String address;
 
     private String type;
 
     private String introduction;
+    
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Product_detail> product_detail;
     
     
 
@@ -47,6 +54,14 @@ public class Product {
 		this.name = name;
 	}
 
+	public String getImg() {
+		return img;
+	}
+
+	public void setImg(String img) {
+		this.img = img;
+	}
+
 	public String getAddress() {
 		return address;
 	}
@@ -69,6 +84,14 @@ public class Product {
 
 	public void setIntroduction(String introduction) {
 		this.introduction = introduction;
+	}
+
+	public List<Product_detail> getProduct_detail() {
+		return product_detail;
+	}
+
+	public void setProduct_detail(List<Product_detail> product_detail) {
+		this.product_detail = product_detail;
 	}
 
 	@Override
