@@ -33,14 +33,14 @@ public class ProductControllerrr {
 	}
 	
 	@PostMapping("/product")
-	public Product createproduct(@RequestBody Product product) {
+	public Product createProduct(@RequestBody Product product) {
 		product.setProduct_id(0);
 		Product dbProduct = productService.save(product);
         return dbProduct;
 	}
 	
 	@GetMapping("/product/{productId}")
-	public Product getproduct(@PathVariable Integer productId){
+	public Product getProduct(@PathVariable Integer productId){
 		Product product = productService.findById(productId);
         if(product == null){
             throw new RuntimeException("note not found");
@@ -49,15 +49,14 @@ public class ProductControllerrr {
         }
     }
 	
-	@PutMapping("/product/{productId}")
-	public Product updateproduct(@PathVariable Integer productId,
-						 		@RequestBody Product product) {	
-		Product dbProduct = productService.save(product);
-        return dbProduct;
+	 @PutMapping("/product/{productId}")
+	    public Product updateProduct(@PathVariable Integer productId, @RequestBody Product product) {
+	        product.setProduct_id(productId);
+	        return productService.save(product);
 	}
 	
 	@DeleteMapping("/product/{productId}")
-	public void deleteproduct(@PathVariable Integer productId) {	
+	public void deleteProduct(@PathVariable Integer productId) {	
 		Product product = productService.findById(productId);
         if(product == null){
             throw new RuntimeException("note not found");

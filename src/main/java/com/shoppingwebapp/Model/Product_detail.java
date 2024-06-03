@@ -27,8 +27,14 @@ public class Product_detail {
 	
 	private String img;
 	
+	private String introduction;
+	
+	private String name;
+	
+	private String facility;
+	
 	@JsonIgnore
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "product_id")
     private Product product;
 	
@@ -141,7 +147,32 @@ public class Product_detail {
 		this.img = img;
 	}
 
+	
 
+	public String getIntroduction() {
+		return introduction;
+	}
+
+	public void setIntroduction(String introduction) {
+		this.introduction = introduction;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+
+	public String getFacility() {
+		return facility;
+	}
+
+	public void setFacility(String facility) {
+		this.facility = facility;
+	}
 
 	@Override
 	public String toString() {
