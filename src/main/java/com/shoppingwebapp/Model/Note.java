@@ -1,4 +1,4 @@
-package com.shoppingwebapp.Entity;
+package com.shoppingwebapp.Model;
 
 import jakarta.persistence.*;
 

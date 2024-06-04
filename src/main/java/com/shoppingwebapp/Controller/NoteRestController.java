@@ -1,9 +1,8 @@
 package com.shoppingwebapp.Controller;
 
 import com.shoppingwebapp.Service.NoteService;
-import com.shoppingwebapp.Entity.Note;
+import com.shoppingwebapp.Model.Note;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;

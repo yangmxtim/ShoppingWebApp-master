@@ -1,6 +1,6 @@
 package com.shoppingwebapp.Service;
 
-import com.shoppingwebapp.Entity.Note;
+import com.shoppingwebapp.Model.Note;
 
 import java.util.List;
 

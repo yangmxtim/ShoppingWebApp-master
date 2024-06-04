@@ -1,7 +1,7 @@
 package com.shoppingwebapp.Service;
 
 import com.shoppingwebapp.Dao.NoteRepository;
-import com.shoppingwebapp.Entity.Note;
+import com.shoppingwebapp.Model.Note;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

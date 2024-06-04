@@ -4,7 +4,9 @@ import com.shoppingwebapp.Model.OrderInfo;
 import ecpay.payment.integration.AllInOne;
 import ecpay.payment.integration.domain.AioCheckOutALL;
 import org.springframework.stereotype.Service;
-
+/*
+                綠界API
+*/
 @Service
 public class OrderService {
 
