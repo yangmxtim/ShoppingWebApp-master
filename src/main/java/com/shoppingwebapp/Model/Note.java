@@ -8,7 +8,7 @@ public class Note {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
-    @Column(name="id")
+    @Column(name="note_id")
     private int id;
 
     @Column(name="title")
@@ -17,14 +17,19 @@ public class Note {
     @Column(name="content")
     private String content;
 
+    @Column(name="user_id")
+    private int userId;
+
     public Note() {
     }
 
 
 
-    public Note(String title, String content) {
+
+    public Note(String title, String content, int userId) {
         this.title = title;
         this.content = content;
+        this.userId = userId;
     }
 
     public int getId() {
@@ -51,12 +56,17 @@ public class Note {
         this.content = content;
     }
 
+    public int getUserId() {return userId;}
+
+    public void setUserId(int userId) {this.userId = userId;}
+
     @Override
     public String toString() {
         return "Note{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
+                ", userId=" + userId +
                 '}';
     }
 }
