@@ -36,6 +36,12 @@ public class NoteServiceImpl implements NoteService {
         return noteRepository.updateContentById(id);
     }
 
+    // get users note
+    @Override
+    public List<Note> findNoteByUserId(Integer userId) {
+        List<Note> notes = noteRepository.findNoteByUserId(userId);
+        return notes;
+    }
 
 
     @Transactional

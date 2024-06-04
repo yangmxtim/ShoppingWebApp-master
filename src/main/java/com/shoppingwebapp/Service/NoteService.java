@@ -14,4 +14,6 @@ public interface NoteService {
     void deleteByID(int id);
 
     int updateContentById(Integer id);
+
+    List<Note> findNoteByUserId(Integer userId);
 }
