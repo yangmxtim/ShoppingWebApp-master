@@ -5,6 +5,7 @@ import java.util.Optional;
 import jakarta.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,10 +29,15 @@ public class MemberController {
     @ResponseBody
     public String createNewUser(@RequestParam String username, @RequestParam String email,
             @RequestParam String password, @RequestParam String phone) {
+
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        // hash
+        String encryptedPassword = passwordEncoder.encode(password);
+
         Member member = new Member();
         member.setUsername(username);
         member.setEmail(email);
-        member.setPassword(password);
+        member.setPassword(encryptedPassword);
         member.setPhone(phone);
         member.setAdmin(false);
         memberRepository.save(member);
@@ -46,15 +52,18 @@ public class MemberController {
         if (memberID != null) {
             Optional<Member> Optional = memberRepository.findById(Integer.parseInt(memberID.toString()));
             Member member = Optional.get();
-            String currentPassword = member.getPassword();
-            if (currentPassword.equals(password)) {
+            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+            if (passwordEncoder.matches(password, member.getPassword())) {
+                // hash
+                String encryptedPassword = passwordEncoder.encode(newPassword);
+                //set
                 member.setUsername(newUsername);
                 member.setEmail(newEmail);
-                member.setPassword(newPassword);
+                member.setPassword(encryptedPassword);
                 memberRepository.save(member);
                 return "Success!";
             } else
-                return "Fail!";
+                return "Fail! Incorrect Password";
         }
         return "Fail!";
     }

@@ -3,6 +3,7 @@ package com.shoppingwebapp.Controller;
 import jakarta.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,14 +25,16 @@ public class MemberAuthentication {
     public String login(@RequestParam String username, @RequestParam String password, HttpSession session) {
         Iterable<Member> iterable = memberRepository.findByUsername(username);
 
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
         for (Member member : iterable) {
-            if (member.getPassword().equals(password)) {
-                if (session.getAttribute("userId") == null) { // if login success and username is not in the session
-                                                              // table
+            if (passwordEncoder.matches(password, member.getPassword())) {
+                if (session.getAttribute("userId") == null) {
                     session.setAttribute("userId", member.getId());
                 }
                 return "Success!";
             }
+            return "Fail!";
         }
         return "Fail!";
     }
