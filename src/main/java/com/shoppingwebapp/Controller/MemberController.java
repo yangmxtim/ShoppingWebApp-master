@@ -29,6 +29,15 @@ public class MemberController {
     @ResponseBody
     public String createNewUser(@RequestParam String username, @RequestParam String email,
             @RequestParam String password, @RequestParam String phone) {
+        //檢查名字是否被註冊過了
+
+        //check username repeat
+        Iterable<Member> iterable = memberRepository.findByUsername(username);
+        for (Member member : iterable) {
+            if (member.getUsername().equals(username)) {
+                return "Fail! Username has been registered";
+            }
+        }
 
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         // hash
