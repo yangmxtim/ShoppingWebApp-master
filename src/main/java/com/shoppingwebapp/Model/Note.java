@@ -2,6 +2,8 @@ package com.shoppingwebapp.Model;
 
 import jakarta.persistence.*;
 
+import java.util.Date;
+
 @Entity
 @Table(name = "notes")
 public class Note {
@@ -20,16 +22,20 @@ public class Note {
     @Column(name="user_id")
     private int userId;
 
+    @Column(name = "updateTime")
+    private Date updateTime;
+
     public Note() {
     }
 
 
 
 
-    public Note(String title, String content, int userId) {
+    public Note(String title, String content, int userId, Date updateTime) {
         this.title = title;
         this.content = content;
         this.userId = userId;
+        this.updateTime = updateTime;
     }
 
     public int getId() {
@@ -60,6 +66,10 @@ public class Note {
 
     public void setUserId(int userId) {this.userId = userId;}
 
+    public Date getUpdateTime() {return updateTime;}
+
+    public void setUpdateTime(Date updateTime) {this.updateTime = updateTime;}
+
     @Override
     public String toString() {
         return "Note{" +
@@ -67,6 +77,7 @@ public class Note {
                 ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
                 ", userId=" + userId +
+                ", updateTime=" + updateTime +
                 '}';
     }
 }
