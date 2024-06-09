@@ -133,11 +133,11 @@ public class ProductControllerrr {
 
 		// 创建并保存ProductDetail实体
 		Product_detail productDetail = new Product_detail();
-		productDetail.setTag(tag);
+//		productDetail.setTag(tag);
 		productDetail.setPrice(price);
-		productDetail.setQuantity(stock);
-		productDetail.setDeparture_location(fromPlace);
-		productDetail.setDestination_location(toPlace);
+//		productDetail.setQuantity(stock);
+//		productDetail.setDeparture_location(fromPlace);
+//		productDetail.setDestination_location(toPlace);
 
 
 		if (imgDataUris.size() > 1) {
@@ -149,11 +149,11 @@ public class ProductControllerrr {
 
 		if (fromTime != null) {
 	        LocalDate departureDate = LocalDate.parse(fromTime, formatter);
-	        productDetail.setDeparture_time(Date.valueOf(departureDate));
+//	        productDetail.setDeparture_time(Date.valueOf(departureDate));
 	    }
 	    if (toTime != null) {
 	        LocalDate arriveDate = LocalDate.parse(toTime, formatter);
-	        productDetail.setArrive_time(Date.valueOf(arriveDate));
+//	        productDetail.setArrive_time(Date.valueOf(arriveDate));
 	    }
 
 	    if (imgDataUris.size() > 1) {

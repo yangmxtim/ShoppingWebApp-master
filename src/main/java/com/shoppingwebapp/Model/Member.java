@@ -2,6 +2,7 @@ package com.shoppingwebapp.Model;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity // This tells Hibernate to make a table out of this class
@@ -17,6 +18,9 @@ public class Member {
     private String email;
 
     private String phone;
+    
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Order_detail> order_detail = new ArrayList<>();
 
 
 
@@ -70,4 +74,13 @@ public class Member {
     public void setAdmin(Boolean admin) {
         isAdmin = admin;
     }
+
+	public List<Order_detail> getOrder_detail() {
+		return order_detail;
+	}
+
+	public void setOrder_detail(List<Order_detail> order_detail) {
+		this.order_detail = order_detail;
+	}
+    
 }
