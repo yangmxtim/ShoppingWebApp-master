@@ -14,114 +14,132 @@ public class Product {
     private String name;
     private String img;
     private String address;
-    private String type;
     private String phone;
+    private String type;
+    private String tag; 
     private String introduction;
+    private String facility;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Product_detail> product_detail = new ArrayList<>();
+    
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comment> comment = new ArrayList<>();
 
     public Product() {
         super();
     }
 
-    public Product(Integer product_id, String name, String img, String address, String type, String phone,
-                   String introduction, List<Product_detail> product_detail) {
-        super();
-        this.product_id = product_id;
-        this.name = name;
-        this.img = img;
-        this.address = address;
-        this.type = type;
-        this.phone = phone;
-        this.introduction = introduction;
-        this.product_detail = product_detail;
-    }
+	public Product(Integer product_id, String name, String img, String address, String phone, String type, String tag,
+			String introduction, String facility, List<Product_detail> product_detail, List<Comment> comment) {
+		super();
+		this.product_id = product_id;
+		this.name = name;
+		this.img = img;
+		this.address = address;
+		this.phone = phone;
+		this.type = type;
+		this.tag = tag;
+		this.introduction = introduction;
+		this.facility = facility;
+		this.product_detail = product_detail;
+		this.comment = comment;
+	}
 
-    // Getters and setters
+	public Integer getProduct_id() {
+		return product_id;
+	}
 
-    public Integer getProduct_id() {
-        return product_id;
-    }
+	public void setProduct_id(Integer product_id) {
+		this.product_id = product_id;
+	}
 
-    public void setProduct_id(Integer product_id) {
-        this.product_id = product_id;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public String getImg() {
+		return img;
+	}
 
-    public String getImg() {
-        return img;
-    }
+	public void setImg(String img) {
+		this.img = img;
+	}
 
-    public void setImg(String img) {
-        this.img = img;
-    }
+	public String getAddress() {
+		return address;
+	}
 
-    public String getAddress() {
-        return address;
-    }
+	public void setAddress(String address) {
+		this.address = address;
+	}
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
+	public String getPhone() {
+		return phone;
+	}
 
-    public String getType() {
-        return type;
-    }
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
 
-    public void setType(String type) {
-        this.type = type;
-    }
+	public String getType() {
+		return type;
+	}
 
-    public String getPhone() {
-        return phone;
-    }
+	public void setType(String type) {
+		this.type = type;
+	}
 
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
+	public String getTag() {
+		return tag;
+	}
 
-    public String getIntroduction() {
-        return introduction;
-    }
+	public void setTag(String tag) {
+		this.tag = tag;
+	}
 
-    public void setIntroduction(String introduction) {
-        this.introduction = introduction;
-    }
+	public String getIntroduction() {
+		return introduction;
+	}
 
-    public List<Product_detail> getProduct_detail() {
-        return product_detail;
-    }
+	public void setIntroduction(String introduction) {
+		this.introduction = introduction;
+	}
 
-    public void setProduct_detail(List<Product_detail> product_detail) {
-        this.product_detail.clear();
-        if (product_detail != null) {
-            this.product_detail.addAll(product_detail);
-        }
-    }
+	public String getFacility() {
+		return facility;
+	}
 
-    public void addProductDetail(Product_detail detail) {
-        product_detail.add(detail);
-        detail.setProduct(this);
-    }
+	public void setFacility(String facility) {
+		this.facility = facility;
+	}
 
-    public void removeProductDetail(Product_detail detail) {
-        product_detail.remove(detail);
-        detail.setProduct(null);
-    }
+	public List<Product_detail> getProduct_detail() {
+		return product_detail;
+	}
 
-    @Override
-    public String toString() {
-        return "Product [product_id=" + product_id + ", name=" + name + ", img=" + img + ", address=" + address
-                + ", type=" + type + ", phone=" + phone + ", introduction=" + introduction + ", product_detail="
-                + product_detail + "]";
-    }
-}
-    
+	public void setProduct_detail(List<Product_detail> product_detail) {
+		this.product_detail = product_detail;
+	}
+
+	public List<Comment> getComment() {
+		return comment;
+	}
+
+	public void setComment(List<Comment> comment) {
+		this.comment = comment;
+	}
+
+	@Override
+	public String toString() {
+		return "Product [product_id=" + product_id + ", name=" + name + ", img=" + img + ", address=" + address
+				+ ", phone=" + phone + ", type=" + type + ", tag=" + tag + ", introduction=" + introduction
+				+ ", facility=" + facility + ", product_detail=" + product_detail + ", comment=" + comment + "]";
+	}
+
+	    
+}    

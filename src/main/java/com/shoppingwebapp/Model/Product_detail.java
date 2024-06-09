@@ -1,5 +1,7 @@
 package com.shoppingwebapp.Model;
-import java.sql.Date;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -11,55 +13,39 @@ public class Product_detail {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer product_detail_id;
 	
-	private String tag;
-	
-	private Integer price;
-	
-	private Integer quantity;
-	
-	private String departure_location;
-	
-	private String destination_location;
-	
-	private Date departure_time;
-	
-	private Date arrive_time;
+	private String name;
 	
 	private String img;
 	
+	private Integer price;
+	
 	private String introduction;
 	
-	private String name;
-	
-	private String facility;
+	private String specification;
 	
 	@JsonIgnore
-	@ManyToOne(cascade = CascadeType.REMOVE)
+	@ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "product_id")
     private Product product;
 	
-	
+	@OneToMany(mappedBy = "product_detail", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Stock> stock = new ArrayList<>();
 
 	public Product_detail() {
 		super();
 	}
-
-	public Product_detail(Integer product_detail_id, String tag, Integer price, Integer quantity,
-			String departure_location, String destination_location, Date departure_time, Date arrive_time, String img,
-			Product product) {
+	
+	public Product_detail(Integer product_detail_id, String name, String img, Integer price, 
+			String introduction, String specification, Product product) {
 		super();
 		this.product_detail_id = product_detail_id;
-		this.tag = tag;
-		this.price = price;
-		this.quantity = quantity;
-		this.departure_location = departure_location;
-		this.destination_location = destination_location;
-		this.departure_time = departure_time;
-		this.arrive_time = arrive_time;
+		this.name = name;
 		this.img = img;
+		this.price = price;
+		this.introduction = introduction;
+		this.specification = specification;
 		this.product = product;
 	}
-
 
 	public Integer getProduct_detail_id() {
 		return product_detail_id;
@@ -69,12 +55,20 @@ public class Product_detail {
 		this.product_detail_id = product_detail_id;
 	}
 
-	public String getTag() {
-		return tag;
+	public String getName() {
+		return name;
 	}
 
-	public void setTag(String tag) {
-		this.tag = tag;
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getImg() {
+		return img;
+	}
+
+	public void setImg(String img) {
+		this.img = img;
 	}
 
 	public Integer getPrice() {
@@ -85,70 +79,6 @@ public class Product_detail {
 		this.price = price;
 	}
 
-	public Integer getQuantity() {
-		return quantity;
-	}
-
-	public void setQuantity(Integer quantity) {
-		this.quantity = quantity;
-	}
-
-	public String getDeparture_location() {
-		return departure_location;
-	}
-
-	public void setDeparture_location(String departure_location) {
-		this.departure_location = departure_location;
-	}
-
-	public String getDestination_location() {
-		return destination_location;
-	}
-
-	public void setDestination_location(String destination_location) {
-		this.destination_location = destination_location;
-	}
-
-	public Date getDeparture_time() {
-		return departure_time;
-	}
-
-	public void setDeparture_time(Date departure_time) {
-		this.departure_time = departure_time;
-	}
-
-	public Date getArrive_time() {
-		return arrive_time;
-	}
-
-	public void setArrive_time(Date arrive_time) {
-		this.arrive_time = arrive_time;
-	}
-	
-	
-
-	public Product getProduct() {
-		return product;
-	}
-
-
-
-	public void setProduct(Product product) {
-		this.product = product;
-	}
-
-	public String getImg() {
-		return img;
-	}
-
-
-
-	public void setImg(String img) {
-		this.img = img;
-	}
-
-	
-
 	public String getIntroduction() {
 		return introduction;
 	}
@@ -157,33 +87,35 @@ public class Product_detail {
 		this.introduction = introduction;
 	}
 
-	public String getName() {
-		return name;
+	public String getSpecification() {
+		return specification;
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-	
-
-	public String getFacility() {
-		return facility;
+	public void setSpecification(String specification) {
+		this.specification = specification;
 	}
 
-	public void setFacility(String facility) {
-		this.facility = facility;
+	public Product getProduct() {
+		return product;
+	}
+
+	public void setProduct(Product product) {
+		this.product = product;
+	}
+
+	public List<Stock> getStock() {
+		return stock;
+	}
+
+	public void setStock(List<Stock> stock) {
+		this.stock = stock;
 	}
 
 	@Override
 	public String toString() {
-		return "Product_detail [product_detail_id=" + product_detail_id + ", tag=" + tag + ", price=" + price
-				+ ", quantity=" + quantity + ", departure_location=" + departure_location + ", destination_location="
-				+ destination_location + ", departure_time=" + departure_time + ", arrive_time=" + arrive_time
-				+ ", img=" + img + ", product=" + product + "]";
+		return "Product_detail [product_detail_id=" + product_detail_id + ", name=" + name + ", img=" + img + ", price="
+				+ price +  ", introduction=" + introduction + ", specification="
+				+ specification + ", product=" + product + "]";
 	}
-
-
-	
-	
 	
 }

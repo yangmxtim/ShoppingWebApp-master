@@ -72,7 +72,7 @@ public class ProductServiceImpl implements ProductService {
         if (newProduct.getProduct_detail() != null) {
             for (Product_detail detail : newProduct.getProduct_detail()) {
                 detail.setProduct(existingProduct);
-                existingProduct.addProductDetail(detail);
+//                existingProduct.addProductDetail(detail);
             }
         }
     }
