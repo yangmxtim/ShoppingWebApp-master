@@ -11,4 +11,8 @@ public interface ProductService {
     Product save(Product product);
     
     void deleteByID(Integer id);
+    
+    List<Product> getProductsByType(String type);
+    
+    List<Product> getProductsByTag(String tag);
 }

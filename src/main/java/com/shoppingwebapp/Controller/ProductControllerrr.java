@@ -168,5 +168,15 @@ public class ProductControllerrr {
 		return ResponseEntity.ok("File uploaded and data saved successfully");
 	}
 	
+	@GetMapping("/products")
+    public List<Product> getProductsByType(@RequestParam String type) {
+        return productService.getProductsByType(type);
+    }
+	
+	@GetMapping("/tag")
+    public List<Product> getProductsByTag(@RequestParam String tag) {
+        return productService.getProductsByTag(tag);
+    }
+	
 	
 }
