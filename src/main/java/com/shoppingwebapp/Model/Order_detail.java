@@ -2,8 +2,11 @@ package com.shoppingwebapp.Model;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;
@@ -13,6 +16,7 @@ public class Order_detail{
 
 	@Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
+
 	private Integer order_id;
 	
 	private Date order_date;
@@ -36,35 +40,33 @@ public class Order_detail{
 	private String contact_email;
 	
 	@OneToMany(mappedBy = "order_detail", cascade = CascadeType.ALL)
-    private List<Orderitem> orderitem = new ArrayList<>();
+//	@JsonBackReference
+
+	private Set<Orderitem> orderitem = new HashSet<>();;
 	
 	
 	@JsonIgnore
 	@ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id")
-    private Member member;
+//	@JsonBackReference
+	private Member member;
 
 	public Order_detail() {
 		super();
 	}
 
-	public Order_detail(Integer order_id, Date order_date, Integer total_amount, String tradedesc,
-			String payment_method, String payment_status, Date payment_date, String order_status, String contact_name,
-			String contact_phone, String contact_email, List<Orderitem> orderitem, Member member) {
-		super();
-		this.order_id = order_id;
-		this.order_date = order_date;
-		this.total_amount = total_amount;
-		this.tradedesc = tradedesc;
-		this.payment_method = payment_method;
-		this.payment_status = payment_status;
-		this.payment_date = payment_date;
-		this.order_status = order_status;
-		this.contact_name = contact_name;
-		this.contact_phone = contact_phone;
+	public Order_detail(String contact_email, String contact_phone, String contact_name, String order_status, Date payment_date, String payment_status, String payment_method, String tradedesc, Integer total_amount, Date order_date, Integer order_id) {
 		this.contact_email = contact_email;
-		this.orderitem = orderitem;
-		this.member = member;
+		this.contact_phone = contact_phone;
+		this.contact_name = contact_name;
+		this.order_status = order_status;
+		this.payment_date = payment_date;
+		this.payment_status = payment_status;
+		this.payment_method = payment_method;
+		this.tradedesc = tradedesc;
+		this.total_amount = total_amount;
+		this.order_date = order_date;
+		this.order_id = order_id;
 	}
 
 	public Integer getOrder_id() {
@@ -155,11 +157,11 @@ public class Order_detail{
 		this.contact_email = contact_email;
 	}
 
-	public List<Orderitem> getOrderitem() {
+	public Set<Orderitem> getOrderitem() {
 		return orderitem;
 	}
 
-	public void setOrderitem(List<Orderitem> orderitem) {
+	public void setOrderitem(Set<Orderitem> orderitem) {
 		this.orderitem = orderitem;
 	}
 
@@ -171,14 +173,21 @@ public class Order_detail{
 		this.member = member;
 	}
 
+
 	@Override
 	public String toString() {
-		return "Order_detail [order_id=" + order_id + ", order_date=" + order_date + ", total_amount=" + total_amount
-				+ ", tradedesc=" + tradedesc + ", payment_method=" + payment_method + ", payment_status="
-				+ payment_status + ", payment_date=" + payment_date + ", order_status=" + order_status
-				+ ", contact_name=" + contact_name + ", contact_phone=" + contact_phone + ", contact_email="
-				+ contact_email + ", orderitem=" + orderitem + ", member=" + member + "]";
+		return "Order_detail{" +
+				"contact_email='" + contact_email + '\'' +
+				", contact_phone='" + contact_phone + '\'' +
+				", contact_name='" + contact_name + '\'' +
+				", order_status='" + order_status + '\'' +
+				", payment_date=" + payment_date +
+				", payment_status='" + payment_status + '\'' +
+				", payment_method='" + payment_method + '\'' +
+				", tradedesc='" + tradedesc + '\'' +
+				", total_amount=" + total_amount +
+				", order_date=" + order_date +
+				", order_id=" + order_id +
+				'}';
 	}
-
-	
 }

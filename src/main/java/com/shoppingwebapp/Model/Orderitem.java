@@ -2,6 +2,7 @@ package com.shoppingwebapp.Model;
 
 import java.sql.Date;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -23,24 +24,25 @@ public class Orderitem {
 	
 	@ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "order_id")
-    private Order_detail order_detail;
+	@JsonBackReference
+	private Order_detail order_detail;
 	
 	@OneToOne
 	@JoinColumn(name = "product_detail_id")
+//	@JsonBackReference
 	private Product_detail productdetail;
 
 	public Orderitem() {
 		super();
 	}
 
-	public Orderitem(Integer order_item_id, String status, Date date, Order_detail order_detail,
-			Product_detail productdetail) {
-		super();
+
+
+
+	public Orderitem(Integer order_item_id, String status, Date date) {
 		this.order_item_id = order_item_id;
 		this.status = status;
 		this.date = date;
-		this.order_detail = order_detail;
-		this.productdetail = productdetail;
 	}
 
 	public Integer getOrder_item_id() {
@@ -85,8 +87,7 @@ public class Orderitem {
 
 	@Override
 	public String toString() {
-		return "Orderitem [order_item_id=" + order_item_id + ", status=" + status + ", date=" + date + ", order_detail="
-				+ order_detail + ", productdetail=" + productdetail + "]";
+		return "Orderitem [order_item_id=" + order_item_id + ", status=" + status + ", date=" + date + "]";
 	}
 
 	
