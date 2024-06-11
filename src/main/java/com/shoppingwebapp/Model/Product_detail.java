@@ -3,6 +3,7 @@ package com.shoppingwebapp.Model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;
@@ -23,10 +24,11 @@ public class Product_detail {
 	
 	private String specification;
 	
-	@JsonIgnore
+//	@JsonIgnore
 	@ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "product_id")
-    private Product product;
+//	@JsonBackReference
+	private Product product;
 	
 	@OneToMany(mappedBy = "product_detail", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Stock> stock = new ArrayList<>();
@@ -35,16 +37,26 @@ public class Product_detail {
 		super();
 	}
 	
-	public Product_detail(Integer product_detail_id, String name, String img, Integer price, 
-			String introduction, String specification, Product product) {
-		super();
+//	public Product_detail(Integer product_detail_id, String name, String img, Integer price,
+//			String introduction, String specification, Product product) {
+//		super();
+//		this.product_detail_id = product_detail_id;
+//		this.name = name;
+//		this.img = img;
+//		this.price = price;
+//		this.introduction = introduction;
+//		this.specification = specification;
+//		this.product = product;
+//	}
+
+
+	public Product_detail(Integer product_detail_id, String name, String img, Integer price, String introduction, String specification) {
 		this.product_detail_id = product_detail_id;
 		this.name = name;
 		this.img = img;
 		this.price = price;
 		this.introduction = introduction;
 		this.specification = specification;
-		this.product = product;
 	}
 
 	public Integer getProduct_detail_id() {
@@ -111,11 +123,22 @@ public class Product_detail {
 		this.stock = stock;
 	}
 
+//	@Override
+//	public String toString() {
+//		return "Product_detail [product_detail_id=" + product_detail_id + ", name=" + name + ", img=" + img + ", price="
+//				+ price +  ", introduction=" + introduction + ", specification="
+//				+ specification + ", product=" + product + "]";
+//	}
+
 	@Override
 	public String toString() {
-		return "Product_detail [product_detail_id=" + product_detail_id + ", name=" + name + ", img=" + img + ", price="
-				+ price +  ", introduction=" + introduction + ", specification="
-				+ specification + ", product=" + product + "]";
+		return "Product_detail{" +
+				"product_detail_id=" + product_detail_id +
+				", name='" + name + '\'' +
+				", img='" + img + '\'' +
+				", price=" + price +
+				", introduction='" + introduction + '\'' +
+				", specification='" + specification + '\'' +
+				'}';
 	}
-	
 }

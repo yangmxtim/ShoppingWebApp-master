@@ -40,7 +40,6 @@ public class NoteServiceImpl implements NoteService {
     @Override
     public List<Note> findNoteByUserId(Integer userId) {
         List<Note> notes = noteRepository.findNoteByUserId(userId);
-        System.out.println(notes);
         return notes;
     }
 

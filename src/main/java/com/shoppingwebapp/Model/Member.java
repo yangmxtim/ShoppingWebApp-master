@@ -1,9 +1,12 @@
 package com.shoppingwebapp.Model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity // This tells Hibernate to make a table out of this class
 public class Member {
@@ -20,9 +23,8 @@ public class Member {
     private String phone;
     
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Order_detail> order_detail = new ArrayList<>();
-
-
+//    @JsonBackReference
+    private Set<Order_detail> order_detail = new HashSet<>();;
 
     private Boolean isAdmin;
 
@@ -75,12 +77,37 @@ public class Member {
         isAdmin = admin;
     }
 
-	public List<Order_detail> getOrder_detail() {
+	public Set<Order_detail> getOrder_detail() {
 		return order_detail;
 	}
 
-	public void setOrder_detail(List<Order_detail> order_detail) {
+	public void setOrder_detail(Set<Order_detail> order_detail) {
 		this.order_detail = order_detail;
 	}
-    
+    public Member(){};
+
+    public Member(String username, String password, String email, String phone) {}
+//    @Override
+//    public String toString() {
+//        return "Member{" +
+//                "id=" + id +
+//                ", username='" + username + '\'' +
+//                ", password='" + password + '\'' +
+//                ", email='" + email + '\'' +
+//                ", phone='" + phone + '\'' +
+//                '}';
+//    }
+
+    @Override
+    public String toString() {
+        return "Member{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", order_detail=" + order_detail +
+                ", isAdmin=" + isAdmin +
+                '}';
+    }
 }
