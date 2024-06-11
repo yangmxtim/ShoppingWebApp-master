@@ -84,4 +84,20 @@ public class ProductServiceImpl implements ProductService {
         }
         productRepository.deleteById(id);
     }
+
+	@Override
+	public List<Product> getProductsByType(String type) {
+		return productRepository.findProductsByType(type);
+	}
+
+	@Override
+	public List<Product> getProductsByTag(String tag) {
+		return productRepository.findProductsByTag( tag);
+	}
+
+	
+
+	
+	
+	
 }
