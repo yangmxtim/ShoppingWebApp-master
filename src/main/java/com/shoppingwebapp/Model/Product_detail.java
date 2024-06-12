@@ -27,7 +27,7 @@ public class Product_detail {
 //	@JsonIgnore
 	@ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "product_id")
-//	@JsonBackReference
+	@JsonBackReference
 	private Product product;
 	
 	@OneToMany(mappedBy = "product_detail", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -37,27 +37,27 @@ public class Product_detail {
 		super();
 	}
 	
-//	public Product_detail(Integer product_detail_id, String name, String img, Integer price,
-//			String introduction, String specification, Product product) {
-//		super();
-//		this.product_detail_id = product_detail_id;
-//		this.name = name;
-//		this.img = img;
-//		this.price = price;
-//		this.introduction = introduction;
-//		this.specification = specification;
-//		this.product = product;
-//	}
-
-
-	public Product_detail(Integer product_detail_id, String name, String img, Integer price, String introduction, String specification) {
+	public Product_detail(Integer product_detail_id, String name, String img, Integer price,
+			String introduction, String specification, Product product) {
+		super();
 		this.product_detail_id = product_detail_id;
 		this.name = name;
 		this.img = img;
 		this.price = price;
 		this.introduction = introduction;
 		this.specification = specification;
+		this.product = product;
 	}
+
+
+//	public Product_detail(Integer product_detail_id, String name, String img, Integer price, String introduction, String specification) {
+//		this.product_detail_id = product_detail_id;
+//		this.name = name;
+//		this.img = img;
+//		this.price = price;
+//		this.introduction = introduction;
+//		this.specification = specification;
+//	}
 
 	public Integer getProduct_detail_id() {
 		return product_detail_id;
