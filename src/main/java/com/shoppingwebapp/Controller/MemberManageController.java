@@ -1,7 +1,6 @@
 package com.shoppingwebapp.Controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -52,6 +51,7 @@ public class MemberManageController {
 		return memberManageService.findByPermission(isAdmin);
 	}
 	
+	// 更新會員資料
 	@PutMapping("/memberManage/{id}")
 	public ResponseEntity<Member> updateById(@RequestBody Member bean) {
 		System.out.println("updateById()");
@@ -59,4 +59,5 @@ public class MemberManageController {
 		ResponseEntity<Member> re = new ResponseEntity<>(updatedBean, HttpStatus.OK);
 		return re;
 	}
+	
 }
