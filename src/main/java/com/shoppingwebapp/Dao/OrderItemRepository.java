@@ -1,7 +1,7 @@
 package com.shoppingwebapp.Dao;
 
 import com.shoppingwebapp.DTO.OrderInfoDTO;
-import com.shoppingwebapp.Model.Member;
+
 import com.shoppingwebapp.Model.Orderitem;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
