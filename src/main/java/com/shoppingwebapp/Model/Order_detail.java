@@ -42,7 +42,7 @@ public class Order_detail{
 	@OneToMany(mappedBy = "order_detail", cascade = CascadeType.ALL)
 //	@JsonBackReference
 
-	private Set<Orderitem> orderitem = new HashSet<>();;
+	private List<Orderitem> orderitem = new ArrayList<>();;
 	
 	
 	@JsonIgnore
@@ -157,11 +157,11 @@ public class Order_detail{
 		this.contact_email = contact_email;
 	}
 
-	public Set<Orderitem> getOrderitem() {
+	public List<Orderitem> getOrderitem() {
 		return orderitem;
 	}
 
-	public void setOrderitem(Set<Orderitem> orderitem) {
+	public void setOrderitem(List<Orderitem> orderitem) {
 		this.orderitem = orderitem;
 	}
 

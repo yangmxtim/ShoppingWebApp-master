@@ -24,8 +24,8 @@ public class Product {
     private String facility;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
-	@JsonBackReference
-	private Set<Product_detail> product_detail = new HashSet<>();
+//	@JsonBackReference
+	private List<Product_detail> product_detail = new ArrayList<>();
     
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
 	@JsonBackReference
@@ -35,21 +35,6 @@ public class Product {
         super();
     }
 
-//	public Product(Integer product_id, String name, String img, String address, String phone, String type, String tag,
-//			String introduction, String facility, List<Product_detail> product_detail, List<Comment> comment) {
-//		super();
-//		this.product_id = product_id;
-//		this.name = name;
-//		this.img = img;
-//		this.address = address;
-//		this.phone = phone;
-//		this.type = type;
-//		this.tag = tag;
-//		this.introduction = introduction;
-//		this.facility = facility;
-//		this.product_detail = product_detail;
-//		this.comment = comment;
-//	}
 
 
 	public Product(Integer product_id, String name, String img, String address, String phone, String type, String tag, String introduction, String facility) {
@@ -63,7 +48,21 @@ public class Product {
 		this.introduction = introduction;
 		this.facility = facility;
 	}
-
+//public Product(Integer product_id, String name, String img, String address, String phone, String type, String tag,
+//			   String introduction, String facility, List<Product_detail> product_detail, List<Comment> comment) {
+//	super();
+//	this.product_id = product_id;
+//	this.name = name;
+//	this.img = img;
+//	this.address = address;
+//	this.phone = phone;
+//	this.type = type;
+//	this.tag = tag;
+//	this.introduction = introduction;
+//	this.facility = facility;
+//	this.product_detail = product_detail;
+//	this.comment = comment;
+//}
 	public Integer getProduct_id() {
 		return product_id;
 	}
@@ -136,11 +135,11 @@ public class Product {
 		this.facility = facility;
 	}
 
-	public Set<Product_detail> getProduct_detail() {
+	public List<Product_detail> getProduct_detail() {
 		return product_detail;
 	}
 
-	public void setProduct_detail(Set<Product_detail> product_detail) {
+	public void setProduct_detail(List<Product_detail> product_detail) {
 		this.product_detail = product_detail;
 	}
 
@@ -152,12 +151,6 @@ public class Product {
 		this.comment = comment;
 	}
 
-//	@Override
-//	public String toString() {
-//		return "Product [product_id=" + product_id + ", name=" + name + ", img=" + img + ", address=" + address
-//				+ ", phone=" + phone + ", type=" + type + ", tag=" + tag + ", introduction=" + introduction
-//				+ ", facility=" + facility + ", product_detail=" + product_detail + ", comment=" + comment + "]";
-//	}
 
 
 	@Override

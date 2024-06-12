@@ -24,7 +24,7 @@ public class Member {
     
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
 //    @JsonBackReference
-    private Set<Order_detail> order_detail = new HashSet<>();;
+    private List<Order_detail> order_detail = new ArrayList<>();;
 
     private Boolean isAdmin;
 
@@ -77,11 +77,11 @@ public class Member {
         isAdmin = admin;
     }
 
-	public Set<Order_detail> getOrder_detail() {
+	public List<Order_detail> getOrder_detail() {
 		return order_detail;
 	}
 
-	public void setOrder_detail(Set<Order_detail> order_detail) {
+	public void setOrder_detail(List<Order_detail> order_detail) {
 		this.order_detail = order_detail;
 	}
     public Member(){};
