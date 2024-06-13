@@ -1,4 +1,4 @@
-package com.shoppingwebapp.Service;
+package com.shoppingwebapp.Service.impl;
 
 import java.util.List;
 import java.util.Optional;
@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.shoppingwebapp.Dao.ProductRepository1;
 import com.shoppingwebapp.Model.Product;
 import com.shoppingwebapp.Model.Product_detail;
+import com.shoppingwebapp.Service.ProductService;
 
 @Service
 public class ProductServiceImpl implements ProductService {
