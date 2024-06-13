@@ -2,6 +2,7 @@ package com.shoppingwebapp.Model;
 
 import java.sql.Date;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -19,7 +20,7 @@ public class Comment {
 	private Date date;
 	private String name;
 	
-	@JsonIgnore
+	@JsonBackReference
 	@ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "product_id")
     private Product product;

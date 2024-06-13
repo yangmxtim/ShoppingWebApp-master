@@ -24,11 +24,9 @@ public class Product {
     private String facility;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
-//	@JsonBackReference
 	private List<Product_detail> product_detail = new ArrayList<>();
     
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
-	@JsonBackReference
 	private List<Comment> comment = new ArrayList<>();
 
     public Product() {
