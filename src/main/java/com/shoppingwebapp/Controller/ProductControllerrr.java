@@ -24,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.shoppingwebapp.Model.Product;
 import com.shoppingwebapp.Model.Product_detail;
+import com.shoppingwebapp.Service.CommentService;
 import com.shoppingwebapp.Service.ProductDetailService;
 import com.shoppingwebapp.Service.ProductService;
 @CrossOrigin(origins = "http://localhost:5173", allowedHeaders = {"Origin", "Content-Type", "Accept"}, methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
@@ -35,12 +36,18 @@ public class ProductControllerrr {
 	private ProductService productService;
 
 	private ProductDetailService productDetailService;
+	
+	private CommentService commentService;
 
-	public ProductControllerrr(ProductService productService, ProductDetailService productDetailService) {
+	
+	
+	public ProductControllerrr(ProductService productService, ProductDetailService productDetailService,
+			CommentService commentService) {
 		this.productService = productService;
 		this.productDetailService = productDetailService;
+		this.commentService = commentService;
 	}
-	
+
 	@GetMapping("/product")
 	public List<Product> findAll(){
 		return productService.findAll();

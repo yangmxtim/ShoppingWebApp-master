@@ -2,6 +2,7 @@ package com.shoppingwebapp.Model;
 
 import java.sql.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;
@@ -13,6 +14,8 @@ public class Comment {
 	private Integer comment_id;
 	private String content;
 	private String rate;
+	
+	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
 	private Date date;
 	private String name;
 	
