@@ -17,7 +17,8 @@ public interface OrderItemRepository extends JpaRepository<Orderitem,Integer> {
             " JOIN  od.orderitem oi " +
             " JOIN  oi.productdetail pd " +
             " JOIN  pd.product p " +
-            "WHERE m.id = :memberId and od.payment_status = '已付款'" +
+//            "WHERE m.id = :memberId and od.payment_status = '已付款'" +
+            "WHERE m.id = :memberId " +
             "ORDER BY oi.order_item_id  ")
     List<OrderInfoDTO> getOrderInfos(@Param("memberId") int id);
 }

@@ -28,7 +28,7 @@ public class Orderitem {
 	private Order_detail order_detail;
 	
 	@OneToOne
-	@JoinColumn(name = "product_detail_id")
+	@JoinColumn(name = "product_detail_id", unique = true)
 //	@JsonBackReference
 	private Product_detail productdetail;
 
@@ -43,6 +43,19 @@ public class Orderitem {
 		this.order_item_id = order_item_id;
 		this.status = status;
 		this.date = date;
+	}
+
+	public Orderitem(String status, Date date, Order_detail order_detail, Product_detail productdetail) {
+		this.status = status;
+		this.date = date;
+		this.order_detail = order_detail;
+		this.productdetail = productdetail;
+	}
+
+	public Orderitem( String status, Date date, Product_detail productdetail) {
+		this.status = status;
+		this.date = date;
+		this.productdetail = productdetail;
 	}
 
 	public Integer getOrder_item_id() {
