@@ -5,6 +5,7 @@ public class OrderInfo {
     private String totalAmount;
     private String itemName;
     private String tradeDesc;
+//    private int skuId;
 
     // Getter 和 Setter
     public String getOrderId() {
@@ -37,5 +38,29 @@ public class OrderInfo {
 
     public void setTradeDesc(String tradeDesc) {
         this.tradeDesc = tradeDesc;
+    }
+
+//    public int getskUid() {
+//        return skuId;
+//    }
+//
+//    public void setSkuid(int skuid) {
+//        this.skuId = skuid;
+//    }
+
+//    @Override
+//    public String toString() {
+//        return "OrderInfo{" +
+//                "skuid=" + skuId +
+//                '}';
+
+    @Override
+    public String toString() {
+        return "OrderInfo{" +
+                "orderId='" + orderId + '\'' +
+                ", totalAmount='" + totalAmount + '\'' +
+                ", itemName='" + itemName + '\'' +
+                ", tradeDesc='" + tradeDesc + '\'' +
+                '}';
     }
 }

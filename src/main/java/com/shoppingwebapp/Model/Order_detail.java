@@ -56,17 +56,24 @@ public class Order_detail{
 	}
 
 	public Order_detail(String contact_email, String contact_phone, String contact_name, String order_status, Date payment_date, String payment_status, String payment_method, String tradedesc, Integer total_amount, Date order_date, Integer order_id) {
-		this.contact_email = contact_email;
-		this.contact_phone = contact_phone;
-		this.contact_name = contact_name;
-		this.order_status = order_status;
-		this.payment_date = payment_date;
+		this.contact_email = contact_email; //
+		this.contact_phone = contact_phone; //
+		this.contact_name = contact_name; //
+		this.order_status = order_status; //
+		this.payment_date = payment_date; //
 		this.payment_status = payment_status;
-		this.payment_method = payment_method;
+		this.payment_method = payment_method; //
 		this.tradedesc = tradedesc;
 		this.total_amount = total_amount;
 		this.order_date = order_date;
 		this.order_id = order_id;
+	}
+
+	public Order_detail(Date order_date, Member member, String payment_method, String payment_status) {
+		this.order_date = order_date;
+		this.member = member;
+		this.payment_method = payment_method;
+		this.payment_status = payment_status;
 	}
 
 	public Integer getOrder_id() {

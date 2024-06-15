@@ -4,17 +4,17 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.shoppingwebapp.Dao.OrderRepository;
+import com.shoppingwebapp.Dao.OrderDetailRepository;
 import com.shoppingwebapp.Model.OrderInfo;
 import com.shoppingwebapp.Service.OrderManageService;
 
 @Service
 public class OrderManageServiceImpl implements OrderManageService {
 	
-	private OrderRepository orderRepository;
+	private OrderDetailRepository orderDetailRepository;
 
-	public OrderManageServiceImpl(OrderRepository orderRepository) {
-		this.orderRepository = orderRepository;
+	public OrderManageServiceImpl(OrderDetailRepository orderDetailRepository) {
+		this.orderDetailRepository = orderDetailRepository;
 	}
 
 
@@ -26,7 +26,7 @@ public class OrderManageServiceImpl implements OrderManageService {
 
 	@Override
 	public List<OrderInfo> findAllWithMember() {
-		List<OrderInfo> orders = orderRepository.findAllWithMember();
+		List<OrderInfo> orders = orderDetailRepository.findAllWithMember();
 		return orders;
 	}
 
