@@ -15,11 +15,11 @@ public class OrderItemController {
     private OrderItemService orderItemService;
 
 
-    @GetMapping("/test/{id}")
+    @GetMapping("/orderlists/{id}")
     public List<OrderInfoDTO> findMemberWithOrdersAndProducts(@PathVariable int id) {
         return orderItemService.getOrderInfoById(id);
     }
-    @GetMapping("/test")
+    @GetMapping("/orderlists")
     public List<Orderitem> finaAll() {
         return orderItemService.finAllMembers();
     }
