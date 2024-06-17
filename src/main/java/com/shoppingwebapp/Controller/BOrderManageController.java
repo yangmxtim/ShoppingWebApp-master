@@ -14,11 +14,11 @@ import com.shoppingwebapp.Service.OrderManageService;
 		RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE })
 
 @RestController
-public class OrderManageController {
+public class BOrderManageController {
 
 	OrderManageService orderManageService;
 	
-	public OrderManageController(OrderManageService orderManageService) {
+	public BOrderManageController(OrderManageService orderManageService) {
 		this.orderManageService = orderManageService;
 	}
 

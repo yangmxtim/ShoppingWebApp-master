@@ -1,229 +1,251 @@
-// package com.shoppingwebapp.Controller;
+package com.shoppingwebapp.Controller;
 
-// import java.time.LocalDate;
-// import java.time.format.DateTimeFormatter;
-// import java.util.ArrayList;
-// import java.util.Base64;
-// import java.util.List;
+import java.util.ArrayList;
+import java.util.Base64;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Optional;
 
-// import org.springframework.http.ResponseEntity;
-// import org.springframework.jdbc.core.BeanPropertyRowMapper;
-// import org.springframework.jdbc.core.JdbcTemplate;
-// import org.springframework.transaction.annotation.Transactional;
-// import org.springframework.web.bind.annotation.CrossOrigin;
-// import org.springframework.web.bind.annotation.DeleteMapping;
-// import org.springframework.web.bind.annotation.GetMapping;
-// import org.springframework.web.bind.annotation.PathVariable;
-// import org.springframework.web.bind.annotation.PostMapping;
-// import org.springframework.web.bind.annotation.RequestMethod;
-// import org.springframework.web.bind.annotation.RequestParam;
-// import org.springframework.web.bind.annotation.RequestPart;
-// import org.springframework.web.bind.annotation.ResponseBody;
-// import org.springframework.web.bind.annotation.RestController;
-// import org.springframework.web.multipart.MultipartFile;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
-// import com.shoppingwebapp.Dao.ProductDetailRepository;
-// import com.shoppingwebapp.Dao.ProductRepository;
-// import com.shoppingwebapp.Dto.ProductManageSummary;
-// import com.shoppingwebapp.Model.Product;
-// import com.shoppingwebapp.Model.Product_detail;
-// import com.shoppingwebapp.Model.Stock;
-// import com.shoppingwebapp.Service.ProductService;
+import com.shoppingwebapp.DTO.ProductManageSummary;
+import com.shoppingwebapp.Dao.ProductRepository;
+import com.shoppingwebapp.Dao.StockRepository;
+import com.shoppingwebapp.Model.Product;
+import com.shoppingwebapp.Model.Product_detail;
+import com.shoppingwebapp.Model.Stock;
+import com.shoppingwebapp.Service.ProductDetailService;
+import com.shoppingwebapp.Service.ProductService;
 
-// import jakarta.persistence.EntityManager;
-// import org.springframework.web.bind.annotation.RequestBody;
+@CrossOrigin(origins = "http://localhost:5173", allowedHeaders = { "Origin", "Content-Type", "Accept" }, methods = {
+		RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE })
+@RestController
+public class BProductManageController {
 
-// @CrossOrigin(origins = "http://localhost:5173", allowedHeaders = { "Origin", "Content-Type", "Accept" }, methods = {
-// 		RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE })
-// @RestController
-// public class BProductManageController {
+	@Autowired
+	private ProductRepository productRepository;
 
-// 	private ProductRepository productRepository;
+	@Autowired
+	private JdbcTemplate jdbcTemplate;
 
-// 	private ProductDetailRepository productDetailRepository;
+	@Autowired
+	private ProductService productService;
+	
+	@Autowired
+	private ProductDetailService productDetailService;
+	
+	@Autowired
+	private StockRepository stockRe;
 
-// 	private EntityManager entityManager;
+	@GetMapping(path = "/")
+	@ResponseBody
+	public List<Product> findAll() {
+		System.out.println("BProductManageController: findAll()");
+		List<Product> product = productRepository.findAll();
+		return product;
+	}
 
-// 	private JdbcTemplate jdbcTemplate;
+	@GetMapping(path = "/getDetailFromProductId/{id}")
+	@ResponseBody
+	public Optional<Product> getDetailFromProductId(@PathVariable Integer id) {
+		System.out.println("BProductManageController: getDetailFromProductId()");
+		System.out.println(id);
+		Optional<Product> product = productRepository.findById(id);
+		System.out.println(product);
+		return product;
+	}
 
-// 	private ProductService productService;
+	// 按照ID刪除Product
+	@Transactional
+	@DeleteMapping(path = "/productManage/{id}")
+	@ResponseBody
+	public ResponseEntity<String> DeleteById(@PathVariable Integer id) {
+		if (productRepository.findById(id).isEmpty()) {
+			return new ResponseEntity<>("Product not found", HttpStatus.NOT_FOUND);
+		} else {
+			productRepository.deleteById(id);
+		}
+		return new ResponseEntity<>("Product deleted successfully", HttpStatus.NO_CONTENT);
+	}
 
-// 	public BProductManageController(ProductRepository productRepository,
-// 			ProductDetailRepository productDetailRepository, EntityManager entityManager, JdbcTemplate jdbcTemplate,
-// 			ProductService productService) {
-// 		this.productRepository = productRepository;
-// 		this.productDetailRepository = productDetailRepository;
-// 		this.entityManager = entityManager;
-// 		this.jdbcTemplate = jdbcTemplate;
-// 		this.productService = productService;
-// 	}
+	// 搜尋全部，自訂搜尋並排序分類
+	@ResponseBody
+	@PostMapping("/productManage/{page}")
+	public ArrayList<Object> searchByMultiStr(@RequestParam(value = "searchText") String searchText,
+			@RequestParam(value = "category") String category, @RequestParam(value = "orderBy") String order,
+			@PathVariable(value = "page") Integer page) {
 
-// 	@GetMapping(path = "/")
-// 	@ResponseBody
-// 	public List<Product> findAll() {
-// 		System.out.println("BProductManageController: findAll()");
-// 		List<Product> product = productRepository.findAll();
-// 		return product;
-// 	}
+		System.out.println("BProductManageController: searchByMultiStr()");
+		System.out.println(searchText + category + order);
 
-// 	// 按照ID刪除Product
-// 	@Transactional
-// 	@DeleteMapping(path = "/productManage/{id}")
-// 	@ResponseBody
-// 	public void DeleteById(@PathVariable Integer id) {
-// 		System.out.println("BProductManageController");
-// 		Product product = entityManager.find(Product.class, id);
-// 		List<Stock> listStock = null;
-// 		List<Product_detail> productDetails = product.getProduct_detail();
-// 		for (Product_detail pd : productDetails) {
-// 			pd.setProduct(null);
-// 			listStock.addAll(pd.getStock());
-// 			pd.getOrderItem().setOrder_detail(null);
-// 		}
-// 		for (Stock s : listStock) {
-// 			s.setProduct_detail(null);
-// 		}
+		if (order.equals("價格最低")) {
+			order = "minPrice ASC";
+		} else if (order.equals("評分最高")) {
+			order = "avgRate DESC";
+		}
 
-// 		entityManager.remove(product);
-// 	}
+		if (category.equals("所有類別")) {
+			category = "";
+		}
+		System.out.println("orderBy : " + order);
 
-// 	// 搜尋全部，自訂搜尋並排序分類
-// 	@ResponseBody
-// 	@PostMapping("/productManage/{page}")
-// 	public ArrayList<Object> searchByMultiStr(@RequestParam(value = "searchText") String searchText,
-// 			@RequestParam(value = "category") String category, @RequestParam(value = "orderBy") String order,
-// 			@PathVariable(value = "page") Integer page) {
+		int pageSize = 10;
+		int offset = pageSize * (page - 1);
+
+		String categoryLike = "%" + category + "%";
+		String searchLike = "%" + searchText + "%";
+
+		ArrayList<Object> responseList = new ArrayList<>();
+		String sqlTotalRow = "SELECT count(*) FROM `product` WHERE name LIKE '" + searchLike + "' AND type LIKE '"
+				+ categoryLike + "'";
+
+		System.out.println(searchText + category + order);
+		System.out.println(sqlTotalRow);
+
+		String sql = "SELECT x.id, x.name, x.img, x.minPrice, x.maxPrice," + "x.type, y.avgRate, y.commentCount\r\n"
+				+ "FROM (\r\n" + "    SELECT \r\n" + "        p.product_id AS id, \r\n" + "        p.name, \r\n"
+				+ "        p.img, \r\n" + "        MIN(pd.price) AS minPrice, \r\n"
+				+ "        MAX(pd.price) AS maxPrice, \r\n" + "        p.type\r\n" + "    FROM product p\r\n"
+				+ "    LEFT JOIN product_detail pd ON p.product_id = pd.product_id\r\n"
+				+ "    GROUP BY p.product_id, p.name, p.img, p.type\r\n" + ") AS x\r\n" + "LEFT JOIN (\r\n"
+				+ "    SELECT \r\n" + "        p.product_id AS id,\r\n" + "        AVG(c.rate) AS avgRate, \r\n"
+				+ "        COUNT(c.comment_id) AS commentCount\r\n" + "    FROM product p\r\n"
+				+ "    LEFT JOIN comment c ON p.product_id = c.product_id\r\n" + "    GROUP BY p.product_id\r\n"
+				+ ") AS y ON x.id = y.id" + " WHERE type LIKE ? AND name LIKE ? \r\n" + "ORDER BY " + order + " LIMIT "
+				+ pageSize + " OFFSET " + offset;
+
+		System.out.println("sqlTotalNum = " + sqlTotalRow);
+		Integer totalNum = jdbcTemplate.queryForObject(sqlTotalRow, Integer.class);
+
+		Object[] args = { categoryLike, searchLike };
+		int[] argTypes = { java.sql.Types.VARCHAR, java.sql.Types.VARCHAR };
+
+		List<ProductManageSummary> productManageSummary = jdbcTemplate.query(sql, args, argTypes,
+				new BeanPropertyRowMapper<>(ProductManageSummary.class));
+
+		for (ProductManageSummary p : productManageSummary) {
+			System.out.println(p.toString());
+		}
+
+		responseList.add(totalNum);
+		responseList.add(productManageSummary);
+
+		return responseList;
+	}
+
+	// 新增商品
+	@Transactional
+	@PostMapping("/upload")
+	public ResponseEntity<?> handleFileUpload(
+			@RequestParam("name") String name, 
+			@RequestParam("stock") Integer stock, 
+			@RequestParam("type") String type, 
+			@RequestParam("phone") String phone,
+			@RequestParam(value = "tag", required = false) String tag,
+			@RequestParam("addr") String addr,
+			@RequestParam(value = "facility", required = false) String facility,
+			@RequestPart(value = "images", required = true) MultipartFile[] images,
+			@RequestParam("intro") String intro,
+			
+			@RequestParam("detailName") String detailName, 
+			@RequestParam("price") Integer price,
+			@RequestParam(value = "specification", required = false) String specification,
+			@RequestPart(value = "detailImg", required = true) MultipartFile[] detailImg,
+			@RequestParam(value = "detailIntro", required = false) String detailIntro
+	) {
+		System.out.println("upload");
+		System.out.println(images);
+		List<String> imgDataUris = new ArrayList<>();
+		if (images != null) {
+			for (MultipartFile image : images) {
+				try {
+					byte[] bytes = image.getBytes();
+					String base64 = Base64.getEncoder().encodeToString(bytes);
+					String dataUri = "data:" + image.getContentType() + ";base64," + base64;
+					System.out.println(dataUri);
+					imgDataUris.add(dataUri);
+				} catch (Exception e) {
+					e.printStackTrace();
+					return ResponseEntity.status(500).body("Failed to save image data");
+				}
+			}
+		}
+		if (detailImg != null) {
+			for (MultipartFile image : detailImg) {
+				try {
+					byte[] bytes = image.getBytes();
+					String base64 = Base64.getEncoder().encodeToString(bytes);
+					String dataUri = "data:" + image.getContentType() + ";base64," + base64;
+					System.out.println(dataUri);
+					imgDataUris.add(dataUri);
+				} catch (Exception e) {
+					e.printStackTrace();
+					return ResponseEntity.status(500).body("Failed to save image data");
+				}
+			}
+		}
+		System.out.println(imgDataUris);
+		switch (type) {
+		case "transport":
+			type = "交通";
+			break;
+		case "stay":
+			type = "住宿";
+			break;
+		case "tourist":
+			type = "景點門票";
+			break;
+		}
+
+		Product product = new Product();
+		product.setName(name);
+		product.setType(type);
+		product.setPhone(phone);
+		product.setTag(tag);
+		product.setAddress(addr);
+		product.setFacility(facility);
+		product.setType(type);
+		product.setIntroduction(intro);
+		if (!imgDataUris.isEmpty()) {
+			product.setImg(imgDataUris.get(0));
+		}
+		product = productService.save(product);
+
+		Product_detail productDetail = new Product_detail();
+		productDetail.setName(detailName);
+		productDetail.setPrice(price);
+		productDetail.setSpecification(specification);
+		productDetail.setIntroduction(detailIntro);
+
+		if (imgDataUris.size() > 1) {
+			productDetail.setImg(imgDataUris.get(1));
+		}
+		productDetail.setProduct(product);
+		productDetailService.save(productDetail);
+
+//		DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE;
 		
-// 		System.out.println("BProductManageController: searchByMultiStr()");
-// 		System.out.println(searchText + category + order);
-		
+		Stock stockBean = new Stock();
+		stockBean.setQuantity(10);
+		stockBean.setProduct_detail(productDetail);
+		stockRe.save(stockBean);
 
-// 		if (order.equals("價格最低")) {
-// 			order = "minPrice ASC";
-// 		} else if (order.equals("評分最高")) {
-// 			order = "avgRate DESC";
-// 		}
-		
-// 		if (category.equals("所有類別")) {
-// 			category = "";
-// 		}
-// 		System.out.println("orderBy : " + order);
-
-// 		int pageSize = 10;
-// 		int offset = pageSize * (page - 1);
-
-// 		String categoryLike = "%" + category + "%";
-// 		String searchLike = "%" + searchText + "%";
-
-// 		ArrayList<Object> responseList = new ArrayList<>();
-// 		String sqlTotalRow = "SELECT count(*) FROM `product` WHERE name LIKE '" + searchLike 
-// 								+ "' AND type LIKE '"+ categoryLike + "'";
-
-// 		System.out.println(searchText + category + order);
-// 		System.out.println(sqlTotalRow);
-
-// 		String sql = "SELECT * FROM\r\n"
-// 				+ "(SELECT p.product_id as id, p.name, p.img, min(pd.price) as minPrice, max(pd.price) as maxPrice, p.type\r\n"
-// 				+ "FROM product p " + "left join product_detail pd on p.product_id = pd.product_id\r\n"
-// 				+ "group by id) as x LEFT JOIN\r\n"
-// 				+ "(SELECT p.product_id as id, AVG(rate) as avgRate, count(c.comment_id) as commentCount\r\n"
-// 				+ "FROM product p " + "inner join comment c on p.product_id = c.product_id\r\n"
-// 				+ "group by id) as y " + "on x.id = y.id " + "WHERE type LIKE ? AND name LIKE ? \r\n"
-// 				+ "ORDER BY "+ order + " LIMIT " + pageSize + " OFFSET " + offset;
-
-// 		System.out.println("sqlTotalNum = " + sqlTotalRow);
-// 		Integer totalNum = jdbcTemplate.queryForObject(sqlTotalRow, Integer.class);
-
-// 		Object[] args = { categoryLike, searchLike };
-// 		int[] argTypes = { java.sql.Types.VARCHAR, java.sql.Types.VARCHAR };
-
-// 		List<ProductManageSummary> productManageSummary = jdbcTemplate.query(sql, args, argTypes,
-// 				new BeanPropertyRowMapper<>(ProductManageSummary.class));
-		
-// 		for(ProductManageSummary p : productManageSummary) {
-// 			System.out.println(p.toString());
-// 		}
-
-// 		responseList.add(totalNum);
-// 		responseList.add(productManageSummary);
-
-// 		return responseList;
-// 	}
-
-// 	// 新增商品
-// 	@PostMapping("/upload")
-// 	public ResponseEntity<?> handleFileUpload(@RequestParam("name") String name, @RequestParam("price") Integer price,
-// 			@RequestParam("stock") Integer stock, @RequestParam("type") String type, @RequestParam("tag") String tag,
-// 			@RequestParam(value = "fromTime", required = false) String fromTime,
-// 			@RequestParam(value = "toTime", required = false) String toTime,
-// 			@RequestParam(value = "fromPlace", required = false) String fromPlace,
-// 			@RequestParam(value = "toPlace", required = false) String toPlace,
-// 			@RequestParam(value = "addr", required = false) String addr, @RequestParam("intro") String intro,
-// 			@RequestPart(value = "images", required = false) MultipartFile[] images) {
-
-// 		List<String> imgDataUris = new ArrayList<>();
-
-// 		if (images != null) {
-// 			for (MultipartFile image : images) {
-// 				try {
-// 					byte[] bytes = image.getBytes();
-// 					String base64 = Base64.getEncoder().encodeToString(bytes);
-// 					String dataUri = "data:" + image.getContentType() + ";base64," + base64;
-// 					System.out.println(dataUri);
-// 					imgDataUris.add(dataUri);
-// 				} catch (Exception e) {
-// 					e.printStackTrace();
-// 					return ResponseEntity.status(500).body("Failed to save image data");
-// 				}
-// 			}
-// 		}
-
-// 		Product product = new Product();
-// 		product.setName(name);
-// 		product.setAddress(addr);
-// 		product.setType(type);
-// 		product.setIntroduction(intro);
-
-// 		if (!imgDataUris.isEmpty()) {
-// 			// Assuming the first image is used for the product image
-// 			product.setImg(imgDataUris.get(0));
-// 		}
-
-// 		product = productService.save(product);
-
-// 		// 创建并保存ProductDetail实体
-// 		Product_detail productDetail = new Product_detail();
-// //		productDetail.setTag(tag);
-// 		productDetail.setPrice(price);
-// //		productDetail.setQuantity(stock);
-// //		productDetail.setDeparture_location(fromPlace);
-// //		productDetail.setDestination_location(toPlace);
-
-// 		if (imgDataUris.size() > 1) {
-// 			// Assuming the second image is used for the product detail image
-// 			productDetail.setImg(imgDataUris.get(1));
-// 		}
-
-// 		DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE;
-
-// 		if (fromTime != null) {
-// 			LocalDate departureDate = LocalDate.parse(fromTime, formatter);
-// //	        productDetail.setDeparture_time(Date.valueOf(departureDate));
-// 		}
-// 		if (toTime != null) {
-// 			LocalDate arriveDate = LocalDate.parse(toTime, formatter);
-// //	        productDetail.setArrive_time(Date.valueOf(arriveDate));
-// 		}
-
-// 		if (imgDataUris.size() > 1) {
-// 			// Assuming the second image is used for the product detail image
-// 			productDetail.setImg(imgDataUris.get(1));
-// 		}
-
-// 		productDetail.setProduct(product);
-
-// //		productDetailService.save(productDetail);
-
-// 		return ResponseEntity.ok("File uploaded and data saved successfully");
-// 	}
-// }
+		return ResponseEntity.ok("File uploaded and data saved successfully");
+	}
+}
