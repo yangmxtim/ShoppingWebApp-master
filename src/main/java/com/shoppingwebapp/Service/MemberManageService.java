@@ -1,6 +1,7 @@
 package com.shoppingwebapp.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.shoppingwebapp.Model.Member;
 
@@ -8,7 +9,7 @@ public interface MemberManageService {
 	
 	Member findById(int id);
 	
-	List<Member> findBySearch(String searchText);
+	Iterable<Member> findBySearch(String searchText);
 
 	List<Member> findAll();
 
