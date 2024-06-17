@@ -20,6 +20,7 @@ public class OrderService {
         obj.setTradeDesc(orderInfo.getTradeDesc());
         obj.setItemName(orderInfo.getItemName());
         obj.setReturnURL("http://211.23.128.214:5000"); // 回傳的URL
+        obj.setClientBackURL("http://localhost:5173/categoryMembers");
         obj.setNeedExtraPaidInfo("N");
         String form = all.aioCheckOut(obj, null);
 
