@@ -23,36 +23,36 @@ public class AccessLogFilter extends OncePerRequestFilter {
 
 	@Autowired
 	private RequestDataRepository requestRe;
-	
+
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
 
-		String path = request.getRequestURI();
-		String preferLanguage = request.getHeader("Accept-Language");
-		String platform = request.getHeader("Sec-Ch-Ua-Platform");
-		String ipAddress = request.getRemoteAddr();
-		
-		String[] arr = preferLanguage.split(";");
-//		System.out.println(arr[0]);
+		try {
+			String path = request.getRequestURI();
+			String preferLanguage = request.getHeader("Accept-Language");
+			String platform = request.getHeader("Sec-Ch-Ua-Platform");
+			String ipAddress = request.getRemoteAddr();
 
-		// 紀錄訪問訊息
-//		logger.info(
-//				  "Path: " + path 
-//				+ ", preferLanguage: " + arr[0]
-//				+ ", platform: " + platform
-//				+ ", IP Address: " + ipAddress
-//		);
+			if (preferLanguage != null) {
+				String[] arr = preferLanguage.split(";");
+				preferLanguage = arr[0];
+			}
 
-		if (requestRe != null && path.equals("/products")) {
-	        RequestData requestData = new RequestData();
-	        requestData.setIp(ipAddress);
-	        requestData.setPath(path);
-	        requestData.setPlatform(platform);
-	        requestData.setPreferLanguage(arr[0]);
-	        requestRe.save(requestData);
-	    } 
-		
-		filterChain.doFilter(request, response);
+			// 記錄訪問訊息
+			logger.info("Path: " + path + ", preferLanguage: " + preferLanguage + ", platform: " + platform
+					+ ", IP Address: " + ipAddress);
+
+			if (requestRe != null && path.equals("/products")) {
+				RequestData requestData = new RequestData();
+				requestData.setIp(ipAddress);
+				requestData.setPath(path);
+				requestData.setPlatform(platform);
+				requestData.setPreferLanguage(preferLanguage);
+				requestRe.save(requestData);
+			}
+		} catch (Exception e) {
+			logger.severe("Exception in AccessLogFilter: " + e.getMessage());
+		}
 	}
 }
