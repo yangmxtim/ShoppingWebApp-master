@@ -14,8 +14,10 @@ public class OrderInfoDTO {
     private Integer product_detail_id;
     private String name;
     private String name2;
+    private String img;
+    private String status;
 
-    public OrderInfoDTO(Integer id, String username, Date order_date, String payment_method, Integer total_amount, Integer order_item_id, Integer price,Integer product_detail_id, String name, String name2) {
+    public OrderInfoDTO(Integer id, String username, Date order_date, String payment_method, Integer total_amount, Integer order_item_id, Integer price,Integer product_detail_id, String name, String name2,String img,String status) {
         this.id = id;
         this.username = username;
         this.order_date = order_date;
@@ -26,6 +28,9 @@ public class OrderInfoDTO {
         this.product_detail_id = product_detail_id;
         this.name = name;
         this.name2 = name2;
+        this.img = img;
+        this.status = status;
+
     }
 
     public Integer getId() {
@@ -108,4 +113,19 @@ public class OrderInfoDTO {
         this.price = price;
     }
 
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 }
