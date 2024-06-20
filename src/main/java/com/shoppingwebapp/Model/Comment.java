@@ -13,11 +13,14 @@ public class Comment {
 	@Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer comment_id;
+	
 	private String content;
+	
 	private String rate;
 	
 	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
 	private Date date;
+	
 	private String name;
 	
 	@JsonBackReference
