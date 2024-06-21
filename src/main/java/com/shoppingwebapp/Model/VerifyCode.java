@@ -14,6 +14,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.OutputStream;
 
+import com.shoppingwebapp.Service.RedisService;
+
 public class VerifyCode {
     // height weight
     private int w = 250;
@@ -28,6 +30,13 @@ public class VerifyCode {
     private Color bgcolor = new Color(0, 255, 255);
     //gettext 獲取驗證碼
     private String text;
+
+    //redis
+    private  RedisService redisService;
+    
+    public VerifyCode(RedisService redisService) {
+        this.redisService = redisService;
+    }
     
     //random color
     private Color randomColor() {
@@ -84,14 +93,21 @@ public class VerifyCode {
             g2.drawString(s, x , h - 10);
         }
         this.text = sb.toString();
+        //redis
+        redisService.setStr("VCode", this.text);
+
         drawLine(image);
 
         return image;
     }
 
+    
+
     //get text
     public String getText() {
-        return this.text;
+        //redis
+        return redisService.getStr("VCode");
+        // return this.text;
     }
 
     //set output
