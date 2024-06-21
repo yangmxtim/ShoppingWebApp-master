@@ -25,14 +25,14 @@ import com.shoppingwebapp.Service.ProductService;
 @CrossOrigin(origins = "http://localhost:5173", allowedHeaders = {"Origin", "Content-Type", "Accept"}, methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
 
 @RestController
-public class Commentcontroller {
+public class CommentController {
 	@Autowired
 	private CommentService commentService;
 	
 	@Autowired
     private ProductService productService;
 
-	public Commentcontroller(CommentService commentService) {
+	public CommentController(CommentService commentService) {
 		this.commentService = commentService;
 	}
 	@GetMapping("/comment")
