@@ -33,6 +33,9 @@ public class Product_detail {
 	@OneToMany(mappedBy = "product_detail", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Stock> stock = new ArrayList<>();
 
+	@OneToOne(mappedBy = "productdetail", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Orderitem orderitem ;
+
 	public Product_detail() {
 		super();
 	}

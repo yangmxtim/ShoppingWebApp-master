@@ -12,8 +12,11 @@ public class ScheduledTasks {
     @Autowired
     private DataProcessorService dataProcessorService;
 
-    @Scheduled(fixedDelay = 3600000) // 1hour執行一次
+    @Scheduled(fixedDelay = 1200000) // 20min執行一次
     public void scheduleTaskWithFixedDelay() {
+    	System.out.println("後台數據轉換");
+    	dataProcessorService.processAndUpdateDataChart1();
+    	dataProcessorService.processAndUpdateDataChart2();
         dataProcessorService.processAndUpdateDataChart3();
         dataProcessorService.processAndUpdateDataChart4();
         dataProcessorService.processAndUpdateDataChart5();

@@ -1,7 +1,6 @@
 package com.shoppingwebapp.Controller;
 
 import java.io.ByteArrayOutputStream;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.bind.DatatypeConverter;
@@ -23,6 +22,7 @@ import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.shoppingwebapp.DTO.ChartImgData;
+import com.shoppingwebapp.Dao.ChartDataRepository;
 import com.shoppingwebapp.Dao.RequestDataRepository;
 import com.shoppingwebapp.Model.ChartData;
 import com.shoppingwebapp.Service.BDataManageService;
@@ -38,26 +38,36 @@ public class BDataManageController {
 	
 	@Autowired
 	private RequestDataRepository requestRe;
+	
+	@Autowired
+	private ChartDataRepository chartRepo;
 
 	@ResponseBody
 	@GetMapping("/getChart1Data")
-	public List<ArrayList<Integer>> getChart1Data() {
+	public List<ChartData> getChart1Data() {
 		System.out.println("BDataManageController: getChart1Data()");
-		return bDataManageService.findFlowCount();
+		return bDataManageService.findChartData2("chart1");
+	}
+	
+	@ResponseBody
+	@GetMapping("/getChart2Data")
+	public List<ChartData> getChart2Data() {
+		System.out.println("BDataManageController: getChart2Data()");
+		return bDataManageService.findChartData2("chart2");
 	}
 	
 	@ResponseBody
 	@GetMapping("/getChart3Data")
 	public List<ChartData> getChart3Data() {
 		System.out.println("BDataManageController: getChart3Data()");
-		return bDataManageService.findChartData("chart3");
+		return bDataManageService.findChartData2("chart3");
 	}
 	
 	@ResponseBody
 	@GetMapping("/getChart4Data")
 	public List<ChartData> getChart4Data() {
 		System.out.println("BDataManageController: getChart4Data()");
-		return bDataManageService.findChartData("chart4");
+		return bDataManageService.findChartData2("chart4");
 	}
 	
 	@ResponseBody
@@ -65,6 +75,13 @@ public class BDataManageController {
 	public List<ChartData> getChart5Data() {
 		System.out.println("BDataManageController: getChart5Data()");
 		return bDataManageService.findChartData("chart5");
+	}
+	
+	@ResponseBody
+	@GetMapping("/getChart6Data")
+	public List<String> getChart6Data() {
+		System.out.println("BDataManageController: getChart6Data()");
+		return chartRepo.getChart6Data();
 	}
 	
 	@ResponseBody
@@ -106,7 +123,7 @@ public class BDataManageController {
         PdfWriter.getInstance(document, baos);
         document.open();
         
-        String title = "海島旅遊網站: 後台圖表";
+        String title = "Travel website: Chart Data";
         Paragraph para = new Paragraph(title);
         document.add(para);
 

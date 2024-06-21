@@ -2,7 +2,6 @@ package com.shoppingwebapp.Controller;
 
 import java.util.ArrayList;
 import java.util.Base64;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.shoppingwebapp.DTO.ProductManageSummary;
+import com.shoppingwebapp.Dao.BProductRepository;
 import com.shoppingwebapp.Dao.ProductRepository;
 import com.shoppingwebapp.Dao.StockRepository;
 import com.shoppingwebapp.Model.Product;
@@ -40,6 +40,9 @@ public class BProductManageController {
 
 	@Autowired
 	private ProductRepository productRepository;
+	
+	@Autowired
+	private BProductRepository bProductRepository;
 
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
@@ -59,6 +62,14 @@ public class BProductManageController {
 		System.out.println("BProductManageController: findAll()");
 		List<Product> product = productRepository.findAll();
 		return product;
+	}
+	
+	@GetMapping(path = "/getProductSameNameCount/{name}")
+	@ResponseBody
+	public Integer getProductSameNameCount(@PathVariable String name) {
+		System.out.println("BProductManageController: getProductSameNameCount()");
+		Integer count = bProductRepository.getProductSameNameCount(name);
+		return count;
 	}
 
 	@GetMapping(path = "/getDetailFromProductId/{id}")
