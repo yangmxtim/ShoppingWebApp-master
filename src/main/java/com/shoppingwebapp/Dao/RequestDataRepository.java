@@ -17,7 +17,7 @@ public interface RequestDataRepository extends JpaRepository<RequestData, Intege
 			+ "(SELECT 'mobile' system, COUNT(*) FROM `request_data` \r\n"
 			+ "WHERE platform like '%android%' OR platform like  '%iOS%') as y,\r\n"
 			+ "(SELECT 'other' system, COUNT(*) FROM `request_data` \r\n"
-			+ "WHERE platform like '%Chrome%' OR platform like  '%Unknown%') as z", nativeQuery = true)
+			+ "WHERE platform like '%OS%' OR platform like  '%Unknown%') as z", nativeQuery = true)
     String[] findChart8Data();
 	
 	@Query("SELECT preferLanguage, count(platform) FROM RequestData r "

@@ -46,4 +46,8 @@ public class BDataManageService {
 		
 		return chartRe.findByNameAndMonth(name, month);
 	}
+	
+	public List<ChartData> findChartData2(String name) {
+		return chartRe.findByName(name);
+	}
 }

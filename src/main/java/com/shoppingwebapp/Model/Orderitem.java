@@ -29,7 +29,7 @@ public class Orderitem {
 	@JsonBackReference
 	private Order_detail order_detail;
 
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "product_detail_id", unique = true)
 //	@JsonBackReference
 	private Product_detail productdetail;
