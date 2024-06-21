@@ -44,10 +44,19 @@
             <version>8.0.32</version> <!-- 这里是你需要指定的版本号 -->
         </dependency>
         
+        <!-- redis -->
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+            <version>2.9.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
         <!-- <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <scope>runtime</scope>
+            <groupId>io.lettuce.core</groupId>
+            <artifactId>lettuce-core</artifactId>
         </dependency> -->
         
         <dependency>
