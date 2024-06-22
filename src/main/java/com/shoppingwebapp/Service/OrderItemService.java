@@ -13,5 +13,5 @@ public interface OrderItemService {
 
     List<Orderitem> finAllMembers();
 
-    void saveOrderItem(String jsonString) throws IOException;
+    void saveOrderItem(String jsonString) throws IOException, Exception;
 }
