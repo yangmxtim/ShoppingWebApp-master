@@ -17,6 +17,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -47,23 +49,35 @@ public class OrderItemServiceImpl implements OrderItemService {
 
     @Override
     @Transactional
-    public void saveOrderItem(String jsonString) throws IOException {
+    public void saveOrderItem(String jsonString) throws Exception {
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode jsonNode = objectMapper.readTree(jsonString);
 
         List<Orderitem> orderitemList = new ArrayList<>();
+        //現在時間
         LocalDate currentDate = LocalDate.now();
+        //票卷時間轉換
+        String dateFormat = "yyyy-MM-dd";
+        SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
+        java.sql.Date sqlDate = null;
         for (JsonNode node : jsonNode) {
             JsonNode orderItemNode = node.elements().next();
+            //商品編號
             Integer productDetailId = orderItemNode.get("skuId").asInt();
+            //訂單編號（屬於哪張訂單
             Integer orderDetailId = orderItemNode.get("orderDetailId").asInt();
-            String status = "no";
+            //票卷日期
+            String dateString = orderItemNode.get("selectedDate2").asText();
+            java.util.Date utilDate =  sdf.parse(dateString);
+            sqlDate = new java.sql.Date(utilDate.getTime());
+            //使用狀態
+            String status = "尚未使用";
             int count = orderItemNode.get("count").asInt();
             Order_detail orderDetail = orderDetailRepository.findById(orderDetailId).orElseThrow(() -> new RuntimeException("OrderId not found"));
             Product_detail productDetail = productDetailRepository.findById(productDetailId).orElseThrow(() -> new RuntimeException("Product not found"));
 
             for (int i = 0; i < count; i++) {
-                Orderitem orderitem = new Orderitem(status, Date.valueOf(currentDate),orderDetail,productDetail);
+                Orderitem orderitem = new Orderitem(status,sqlDate,orderDetail,productDetail,Date.valueOf(currentDate));
                 orderitemList.add(orderitem);
             }
         }

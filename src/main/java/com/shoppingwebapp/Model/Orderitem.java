@@ -47,9 +47,10 @@ public class Orderitem {
 		this.date = date;
 	}
 
-	public Orderitem(String status, Date date, Order_detail order_detail, Product_detail productdetail) {
+	public Orderitem(String status, Date ticket_date, Order_detail order_detail, Product_detail productdetail, Date date) {
 		this.status = status;
 		this.date = date;
+		this.ticket_date = ticket_date;
 		this.order_detail = order_detail;
 		this.productdetail = productdetail;
 	}

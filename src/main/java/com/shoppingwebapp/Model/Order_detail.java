@@ -33,6 +33,8 @@ public class Order_detail{
 
 	private String order_status;
 
+	private String ecpayOrderId;
+
 	@OneToMany(mappedBy = "order_detail", cascade = CascadeType.ALL)
 //	@JsonBackReference
 
@@ -69,11 +71,12 @@ public class Order_detail{
 
 
 
-	public Order_detail(Date order_date, Member member, String payment_method, String payment_status) {
+	public Order_detail(Date order_date, Member member, String payment_method, String payment_status, String ecpayOrderId) {
 		this.order_date = order_date;
 		this.member = member;
 		this.payment_method = payment_method;
 		this.payment_status = payment_status;
+		this.ecpayOrderId = ecpayOrderId;
 	}
 
 	public Integer getOrder_id() {
@@ -157,7 +160,13 @@ public class Order_detail{
 		this.member = member;
 	}
 
+	public String getEcpayOrderId() {
+		return ecpayOrderId;
+	}
 
+	public void setEcpayOrderId(String ecpayOrderId) {
+		this.ecpayOrderId = ecpayOrderId;
+	}
 
 	@Override
 	public String toString() {

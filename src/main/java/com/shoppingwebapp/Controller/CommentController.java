@@ -1,6 +1,5 @@
 package com.shoppingwebapp.Controller;
 
-import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.shoppingwebapp.Model.Comment;
 import com.shoppingwebapp.Model.Product;
-import com.shoppingwebapp.Model.Product_detail;
 import com.shoppingwebapp.Service.CommentService;
-import com.shoppingwebapp.Service.ProductDetailService;
 import com.shoppingwebapp.Service.ProductService;
 
 @CrossOrigin(origins = "http://localhost:5173", allowedHeaders = {"Origin", "Content-Type", "Accept"}, methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})

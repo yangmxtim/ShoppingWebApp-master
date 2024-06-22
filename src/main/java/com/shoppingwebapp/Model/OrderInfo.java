@@ -2,6 +2,7 @@ package com.shoppingwebapp.Model;
 
 public class OrderInfo {
     private String orderId;
+    private String ecpayOrderId;
     private String totalAmount;
     private String itemName;
     private String tradeDesc;
@@ -40,7 +41,15 @@ public class OrderInfo {
         this.tradeDesc = tradeDesc;
     }
 
-//    public int getskUid() {
+    public String getEcpayOrderId() {
+        return ecpayOrderId;
+    }
+
+    public void setEcpayOrderId(String ecpayOrderId) {
+        this.ecpayOrderId = ecpayOrderId;
+    }
+
+    //    public int getskUid() {
 //        return skuId;
 //    }
 //
