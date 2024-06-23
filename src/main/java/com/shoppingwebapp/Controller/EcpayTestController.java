@@ -63,7 +63,8 @@ public class EcpayTestController {
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode jsonNode = objectMapper.readTree(jsonString);
         Integer memberId = jsonNode.get("id").asInt();
-        Order_detail orderDetail = orderDetailService.saveOrderDetail(memberId);
+        Integer totalAmount = jsonNode.get("totalAmount").asInt();
+        Order_detail orderDetail = orderDetailService.saveOrderDetail(memberId,totalAmount);
 
         Integer orderId = orderDetail.getOrder_id();
         String ecpayOrderId = orderDetail.getEcpayOrderId();

@@ -1,20 +1,28 @@
 package com.shoppingwebapp.Controller;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.sql.Blob;
+import java.util.Base64;
 import java.util.Optional;
 
+import com.shoppingwebapp.Utils.Base64Utils;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import com.shoppingwebapp.Dao.MemberRepository;
 import com.shoppingwebapp.Model.Member;
+import org.springframework.web.multipart.MultipartFile;
 
 @CrossOrigin(allowCredentials = "true", origins = "http://localhost:5173", allowedHeaders = "http://localhost:5173") // set
                                                                                                                      // CORS
@@ -28,7 +36,7 @@ public class MemberController {
     @PostMapping(path = "/register") // Create member
     @ResponseBody
     public String createNewUser(@RequestParam String username, @RequestParam String email,
-            @RequestParam String password, @RequestParam String phone) {
+                                @RequestParam String password, @RequestParam String phone) {
         //檢查名字是否被註冊過了
 
         //check username repeat
@@ -56,7 +64,7 @@ public class MemberController {
     @PostMapping(path = "/updateMemberInfo") // return member info
     @ResponseBody
     public String updateMemberInfo(@RequestParam String newUsername, @RequestParam String newEmail,
-            @RequestParam String password, @RequestParam String newPassword, HttpSession session) {
+                                   @RequestParam String password, @RequestParam String newPassword, HttpSession session) {
         Object memberID = session.getAttribute("userId");
         if (memberID != null) {
             Optional<Member> Optional = memberRepository.findById(Integer.parseInt(memberID.toString()));
@@ -87,4 +95,47 @@ public class MemberController {
         }
         return null;
     }
+
+    @PostMapping("/uploadImage")
+    public String uploadImage(@RequestParam MultipartFile file, @RequestParam Integer memberID) throws IOException {
+        if (memberID != null) {
+            String base64Img = Base64Utils.converToBase64(file);
+            byte[] imgBytes = Base64.getDecoder().decode(base64Img);
+
+            int updateCount = memberRepository.updateImgById(memberID, imgBytes);
+            if (updateCount > 0) {
+                return "Image uploaded successfully for member with ID " + memberID;
+            } else {
+                return "Failed to upload image for member with ID " + memberID;
+            }
+        } else {
+            return "Member ID is null";
+        }
+    }
+    @GetMapping("/loadImage/{memberID}")
+    public ResponseEntity<InputStreamResource> getMemberPhoto(@PathVariable Integer memberID) {
+
+        Member member = memberRepository.findMemberById(memberID);
+        if (member == null || member.getImg() == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+
+        ByteArrayInputStream inputStream = new ByteArrayInputStream(member.getImg());
+
+        // Set content type and header
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.IMAGE_JPEG); // Adjust content type based on your image type
+        headers.setContentLength(member.getImg().length);
+        headers.set("Content-Disposition", "inline; filename=member_photo.jpg"); // Optional
+        System.out.println("image load");
+        // Return ResponseEntity with InputStreamResource
+        return new ResponseEntity<>(new InputStreamResource(inputStream), headers, HttpStatus.OK);
+    }
+    @GetMapping("/test")
+    public void test() {
+        System.out.println("test");
+    }
+
+
 }
