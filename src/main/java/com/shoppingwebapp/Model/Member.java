@@ -2,7 +2,9 @@ package com.shoppingwebapp.Model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import org.hibernate.annotations.Type;
 
+import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -22,7 +24,9 @@ public class Member {
 
     private String phone;
 
-    private String img;
+    @Lob
+    @Column(name = "img", columnDefinition = "longblob")
+    private byte[] img;
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
 //    @JsonBackReference
@@ -87,12 +91,11 @@ public class Member {
         this.order_detail = order_detail;
     }
 
-
-    public String getImg() {
+    public byte[] getImg() {
         return img;
     }
 
-    public void setImg(String img) {
+    public void setImg(byte[] img) {
         this.img = img;
     }
 

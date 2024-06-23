@@ -29,7 +29,7 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 
     @Override
     @Transactional
-    public Order_detail saveOrderDetail(Integer memberId) throws JsonProcessingException {
+    public Order_detail saveOrderDetail(Integer memberId,Integer totalAmount) throws JsonProcessingException {
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new RuntimeException("Member Not Found"));
 
@@ -39,6 +39,7 @@ public class OrderDetailServiceImpl implements OrderDetailService {
         Order_detail orderDetail = new Order_detail();
         orderDetail.setOrder_date(Date.valueOf(LocalDate.now()));
         orderDetail.setMember(member);
+        orderDetail.setTotal_amount(totalAmount);
         orderDetail.setPayment_method("信用卡");
         orderDetail.setPayment_status("未付款");
         orderDetail.setEcpayOrderId(orderId);
