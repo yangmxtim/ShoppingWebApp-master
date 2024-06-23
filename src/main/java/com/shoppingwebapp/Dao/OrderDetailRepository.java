@@ -17,4 +17,6 @@ public interface OrderDetailRepository extends JpaRepository<Order_detail, Integ
 
 	@Query("SELECT o FROM Order_detail o JOIN FETCH o.member")
 	List<OrderInfo> findAllWithMember();
+
+	Order_detail findByEcpayOrderId(String ecpayOrderId);
 }
