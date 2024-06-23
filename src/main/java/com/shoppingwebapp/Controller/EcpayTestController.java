@@ -1,5 +1,16 @@
 package com.shoppingwebapp.Controller;
 
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -8,14 +19,8 @@ import com.shoppingwebapp.Model.Order_detail;
 import com.shoppingwebapp.Service.OrderDetailService;
 import com.shoppingwebapp.Service.OrderItemService;
 import com.shoppingwebapp.Service.OrderService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
 
-import java.io.IOException;
-import java.util.*;
+import jakarta.servlet.http.HttpServletResponse;
 
 @RestController
 public class EcpayTestController {
@@ -70,7 +75,41 @@ public class EcpayTestController {
 
     //        return orderDetailService.save(jsonString);
     }
+    @PostMapping("/updateOrderStatus")
+    public void getBack(@RequestParam String RtnCode, @RequestParam String MerchantTradeNo, HttpServletResponse response) throws IOException {
+        System.out.println("Received payment callback for order: " + MerchantTradeNo);
+        if ("1".equals(RtnCode)) {
+            System.out.println("Payment successful for order: " + MerchantTradeNo + " OK");
+            // 更新訂單狀態為成功
+            orderDetailService.updatePaymentStatus(MerchantTradeNo, "已付款");
 
+            // 跳轉至前端頁面
+            response.sendRedirect("http://localhost:5173/qr?status=success&order=" + MerchantTradeNo);
+        } else {
+            System.out.println("Payment failed for order: " + MerchantTradeNo);
+            // 更新訂單狀態為付款失敗
+            orderDetailService.updatePaymentStatus(MerchantTradeNo, "付款失败");
+
+            // 跳轉至前端頁面
+            response.sendRedirect("http://localhost:5173/categoryMembers?status=failure&order=" + MerchantTradeNo);
+        }
+    }
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }
 
 //@CrossOrigin(origins = "http://localhost:5173") // 指定允許的前端來源
@@ -82,3 +121,5 @@ public class EcpayTestController {
 //    Integer memberId = jsonNode.get("id").asInt();
 //    orderDetailService.saveOrderDetail(memberId);
 //    return orderDetailService.saveOrderDetail(memberId).getOrder_id();
+
+

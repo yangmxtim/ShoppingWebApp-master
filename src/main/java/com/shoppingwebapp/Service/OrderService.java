@@ -21,6 +21,7 @@ public class OrderService {
         obj.setItemName(orderInfo.getItemName());
         obj.setReturnURL("http://211.23.128.214:5000"); // 回傳的URL
         obj.setClientBackURL("http://localhost:5173/categoryMembers");
+        obj.setOrderResultURL("http://localhost:8080/updateOrderStatus");
         obj.setNeedExtraPaidInfo("N");
         String form = all.aioCheckOut(obj, null);
 
