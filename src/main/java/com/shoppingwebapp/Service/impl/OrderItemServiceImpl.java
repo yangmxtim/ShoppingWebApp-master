@@ -39,7 +39,17 @@ public class OrderItemServiceImpl implements OrderItemService {
 
     @Override
     public List<OrderInfoDTO> getOrderInfoById(Integer id) {
-        return orderItemRepository.getOrderInfos(id);
+        java.util.Date currentDate = new java.util.Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String date = dateFormat.format(currentDate);
+        java.util.Date ticketDate = null;
+        try {
+            ticketDate = dateFormat.parse(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return orderItemRepository.getOrderInfos(id, ticketDate);
     }
 
     @Override
@@ -83,6 +93,11 @@ public class OrderItemServiceImpl implements OrderItemService {
         }
         orderItemRepository.saveAll(orderitemList);
         System.out.println("order items saved" + orderitemList);
+    }
+
+    @Override
+    public int updateContentById(Integer id) {
+        return  orderItemRepository.updateContentById(id);
     }
 
 }
