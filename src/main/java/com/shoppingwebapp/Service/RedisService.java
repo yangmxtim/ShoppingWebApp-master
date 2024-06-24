@@ -16,7 +16,7 @@ public class RedisService {
     }
 
     public void setStr(String key, String value) {
-        long timeout = 20;                  //時間
+        long timeout = 30;                  //時間
         TimeUnit unit = TimeUnit.SECONDS; //時間單位
         redisTemplate.opsForValue().set(key, value, timeout, unit);
     }
