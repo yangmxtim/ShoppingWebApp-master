@@ -101,14 +101,9 @@ public class Orderitem {
 		this.productdetail = productdetail;
 	}
 
-
-
 	public Date getTicket_date() {
 		return ticket_date;
 	}
-
-
-
 
 	public void setTicket_date(Date ticket_date) {
 		this.ticket_date = ticket_date;

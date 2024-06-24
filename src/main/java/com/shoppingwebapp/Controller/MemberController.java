@@ -97,19 +97,19 @@ public class MemberController {
     }
 
     @PostMapping("/uploadImage")
-    public String uploadImage(@RequestParam MultipartFile file, @RequestParam Integer memberID) throws IOException {
+    public ResponseEntity<String> uploadImage(@RequestParam MultipartFile file, @RequestParam Integer memberID) throws IOException {
         if (memberID != null) {
             String base64Img = Base64Utils.converToBase64(file);
             byte[] imgBytes = Base64.getDecoder().decode(base64Img);
-
+            System.out.println(memberID);
             int updateCount = memberRepository.updateImgById(memberID, imgBytes);
             if (updateCount > 0) {
-                return "Image uploaded successfully for member with ID " + memberID;
+                return ResponseEntity.ok("Image uploaded successfully for member with ID " + memberID);
             } else {
-                return "Failed to upload image for member with ID " + memberID;
+                return ResponseEntity.ok("Failed to upload image for member with ID " + memberID);
             }
         } else {
-            return "Member ID is null";
+             return ResponseEntity.ok("Member ID is null");
         }
     }
     @GetMapping("/loadImage/{memberID}")
