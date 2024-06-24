@@ -128,7 +128,7 @@ public class MemberController {
         headers.setContentType(MediaType.IMAGE_JPEG); // Adjust content type based on your image type
         headers.setContentLength(member.getImg().length);
         headers.set("Content-Disposition", "inline; filename=member_photo.jpg"); // Optional
-        System.out.println("image load");
+        // System.out.println("image load");
         // Return ResponseEntity with InputStreamResource
         return new ResponseEntity<>(new InputStreamResource(inputStream), headers, HttpStatus.OK);
     }
