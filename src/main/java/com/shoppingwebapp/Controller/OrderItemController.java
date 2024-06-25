@@ -29,7 +29,13 @@ public class OrderItemController {
     //test qr code
     @GetMapping("/qr/{order_item_id}")
     public String updateNoteContent(@PathVariable Integer order_item_id, HttpServletResponse response) throws IOException {
-        int updatedRows = orderItemService.updateContentById(order_item_id);
+        Integer test = orderItemService.findOrderItemById(order_item_id);
+        int updatedRows;
+        if (test == 1) {
+            updatedRows = orderItemService.updateContentById(order_item_id);
+        }else{
+            updatedRows = -1;
+        }
         if (updatedRows > 0) {
             return "ok";
         } else {

@@ -17,4 +17,5 @@ public interface OrderItemService {
 
     int updateContentById(Integer id);
 
+    Integer findOrderItemById(Integer id);
 }

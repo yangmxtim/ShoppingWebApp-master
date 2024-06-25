@@ -31,5 +31,6 @@ public interface OrderItemRepository extends JpaRepository<Orderitem,Integer> {
     @Query("UPDATE Orderitem oi SET oi.status = '已使用' WHERE oi.order_item_id = :id")
     int updateContentById(@Param("id") Integer id);
 
-
+    @Query("select oi from Orderitem oi where oi.order_item_id = :id")
+    Orderitem findOrderItemByOrderItemId(@Param("id") Integer orderItemId);
 }
