@@ -28,11 +28,12 @@ public class OrderItemController {
 
     //test qr code
     @GetMapping("/qr/{order_item_id}")
-    public void updateNoteContent(@PathVariable Integer order_item_id, HttpServletResponse response) throws IOException {
+    public String updateNoteContent(@PathVariable Integer order_item_id, HttpServletResponse response) throws IOException {
         int updatedRows = orderItemService.updateContentById(order_item_id);
         if (updatedRows > 0) {
-            response.sendRedirect("https://www.google.es/");
+            return "ok";
         } else {
-            response.sendRedirect("https://www.google.es/");        }
+            return "no";
+        }
     }
 }
