@@ -21,6 +21,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 @Service
 public class OrderItemServiceImpl implements OrderItemService {
@@ -41,7 +42,13 @@ public class OrderItemServiceImpl implements OrderItemService {
     public List<OrderInfoDTO> getOrderInfoById(Integer id) {
         java.util.Date currentDate = new java.util.Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        String date = dateFormat.format(currentDate);
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(currentDate);
+        calendar.add(Calendar.DAY_OF_YEAR, -1);
+        java.util.Date lastdate = calendar.getTime();
+
+        String date = dateFormat.format(lastdate);
         java.util.Date ticketDate = null;
         try {
             ticketDate = dateFormat.parse(date);
