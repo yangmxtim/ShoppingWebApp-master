@@ -107,6 +107,15 @@ public class OrderItemServiceImpl implements OrderItemService {
         return  orderItemRepository.updateContentById(id);
     }
 
+    @Override
+    public Integer findOrderItemById(Integer id) {
+        String status = orderItemRepository.findOrderItemByOrderItemId(id).getStatus();
+        if(status.equals("尚未使用")){
+            return 1;
+        }else {
+            return 0;
+        }
+    }
 
 
 }
