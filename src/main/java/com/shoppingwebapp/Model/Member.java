@@ -25,11 +25,10 @@ public class Member {
     private String phone;
 
     @Lob
-    @Column(name = "img", columnDefinition = "longblob")
+    @Column(name = "img", columnDefinition = "mediumblob")
     private byte[] img;
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
-//    @JsonBackReference
     private List<Order_detail> order_detail = new ArrayList<>();;
 
     private Boolean isAdmin;
