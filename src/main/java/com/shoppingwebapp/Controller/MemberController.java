@@ -99,17 +99,22 @@ public class MemberController {
     @PostMapping("/uploadImage")
     public ResponseEntity<String> uploadImage(@RequestParam MultipartFile file, @RequestParam Integer memberID) throws IOException {
         if (memberID != null) {
-            String base64Img = Base64Utils.converToBase64(file);
-            byte[] imgBytes = Base64.getDecoder().decode(base64Img);
-            int updateCount = memberRepository.updateImgById(memberID, imgBytes);
-            if (updateCount > 0) {
-                return ResponseEntity.ok("Image uploaded successfully for member with ID " + memberID);
+            System.out.println(file.getContentType());
+            String fileType = file.getContentType();
+            if(fileType.equals("image/jpeg") || fileType.equals("image/jpg") || fileType.equals("image/png")) {
+                String base64Img = Base64Utils.converToBase64(file);
+                byte[] imgBytes = Base64.getDecoder().decode(base64Img);
+                int updateCount = memberRepository.updateImgById(memberID, imgBytes);
+                if (updateCount > 0) {
+                    return ResponseEntity.ok("Image uploaded successfully for member with ID " + memberID);
+                } else {
+                    return ResponseEntity.ok("Failed to upload image for member with ID " + memberID);
+                }
             } else {
-                return ResponseEntity.ok("Failed to upload image for member with ID " + memberID);
+                return ResponseEntity.badRequest().body("please select a valid image type with jpg, jpeg, png");
             }
-        } else {
-             return ResponseEntity.ok("Member ID is null");
-        }
+        }return ResponseEntity.ok("Member ID is null");
+
     }
     @GetMapping("/loadImage/{memberID}")
     public ResponseEntity<InputStreamResource> getMemberPhoto(@PathVariable Integer memberID) {
