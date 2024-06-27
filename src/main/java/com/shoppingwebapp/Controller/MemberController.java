@@ -101,7 +101,6 @@ public class MemberController {
         if (memberID != null) {
             String base64Img = Base64Utils.converToBase64(file);
             byte[] imgBytes = Base64.getDecoder().decode(base64Img);
-            System.out.println(memberID);
             int updateCount = memberRepository.updateImgById(memberID, imgBytes);
             if (updateCount > 0) {
                 return ResponseEntity.ok("Image uploaded successfully for member with ID " + memberID);
@@ -125,17 +124,13 @@ public class MemberController {
 
         // Set content type and header
         HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.IMAGE_JPEG); // Adjust content type based on your image type
+        headers.setContentType(MediaType.IMAGE_JPEG);
         headers.setContentLength(member.getImg().length);
-        headers.set("Content-Disposition", "inline; filename=member_photo.jpg"); // Optional
-        // System.out.println("image load");
-        // Return ResponseEntity with InputStreamResource
+        headers.set("Content-Disposition", "inline; filename=member_photo.jpg");
+
         return new ResponseEntity<>(new InputStreamResource(inputStream), headers, HttpStatus.OK);
     }
-    @GetMapping("/test")
-    public void test() {
-        System.out.println("test");
-    }
+
 
 
 }

@@ -22,7 +22,7 @@ public class Base64Utils {
             base64Encoder = base64Encoder.replaceAll("\s ", "");
 
         }catch (IOException e){
-            System.out.println("e");
+            System.out.println(e);
         }
         return base64Encoder;
     }
