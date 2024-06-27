@@ -61,14 +61,14 @@ public class BMemberManageController {
 		System.out.println("updateById()");
 		Integer id = bean.getId();
 		Member updatedMember = memberManageService.findById(id);
-		System.out.println("Unupdated member : " + updatedMember.toString());
+//		System.out.println("Unupdated member : " + updatedMember.toString());
 		updatedMember.setUsername(bean.getUsername());
 		updatedMember.setEmail(bean.getEmail());
 		updatedMember.setPhone(bean.getPhone());
 		updatedMember.setAdmin(bean.getAdmin());
 
 		Member result = memberManageService.update(updatedMember);
-		System.out.println("updated member : " + result);
+//		System.out.println("updated member : " + result);
 		ResponseEntity<Member> re = new ResponseEntity<>(result, HttpStatus.OK);
 		return re;
 	}
