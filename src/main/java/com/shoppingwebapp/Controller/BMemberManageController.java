@@ -56,19 +56,19 @@ public class BMemberManageController {
 	}
 
 	// 更新會員資料
-	@PutMapping("/memberManage/{id}")
+	@PutMapping("/memberManage")
 	public ResponseEntity<Member> updateById(@RequestBody Member bean) {
 		System.out.println("updateById()");
 		Integer id = bean.getId();
 		Member updatedMember = memberManageService.findById(id);
+		System.out.println("Unupdated member : " + updatedMember.toString());
 		updatedMember.setUsername(bean.getUsername());
 		updatedMember.setEmail(bean.getEmail());
 		updatedMember.setPhone(bean.getPhone());
 		updatedMember.setAdmin(bean.getAdmin());
 
-		System.out.println(bean.toString());
 		Member result = memberManageService.update(updatedMember);
-		System.out.println(result);
+		System.out.println("updated member : " + result);
 		ResponseEntity<Member> re = new ResponseEntity<>(result, HttpStatus.OK);
 		return re;
 	}
