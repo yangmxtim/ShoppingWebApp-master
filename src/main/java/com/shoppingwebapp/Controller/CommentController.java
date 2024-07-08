@@ -42,7 +42,7 @@ public class CommentController {
 	    
 	    Product product = productService.findById(product_id);
 	    if (product == null) {
-	        throw new RuntimeException("找不到ID为 " + product_id + " 的产品");
+	        throw new RuntimeException("找不到ID為 " + product_id + " 的產品");
 	    }
 	    
 	    comment.setProduct(product);
